@@ -23,6 +23,7 @@ Commit Standards:
         - **conf**  - changes to file structure
         - **test** - changes to code tests
         - **dep** - changes to dependencies
+        - **ci** - changes to continuous integration setup
 
     - Message: short explaining change
 - Example:
