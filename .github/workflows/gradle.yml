@@ -40,3 +40,9 @@ jobs:
 
       - name: Build project
         run: ./gradlew build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: 'Maze Game.jar'
+          path: 'lwjgl3/build/libs/Maze Game-*.jar'
