@@ -8,19 +8,21 @@ on:
 
 jobs:
   build:
-    name: Build
-
     strategy:
       # Finish other jobs even if one fails
       fail-fast: false
 
       matrix:
-        runs-on:
-          - macos-latest
-          - ubuntu-latest
-          - windows-latest
+        include:
+          - name: Linux
+            runs-on: ubuntu-latest
+          - name: MacOS
+            runs-on: macos-latest
+          - name: Windows
+            runs-on: windows-latest
 
-    runs-on: ${{  matrix.runs-on }}
+    name: Build (${{ matrix.name }})
+    runs-on: ${{ matrix.runs-on }}
 
     permissions:
       contents: read
@@ -44,5 +46,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v5
         with:
-          name: 'Maze Game.jar'
-          path: 'lwjgl3/build/libs/Maze Game-*.jar'
+          name: ${{ matrix.name }}.jar
+          path: lwjgl3/build/libs/Maze Game-*.jar
