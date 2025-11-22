@@ -11,6 +11,9 @@ jobs:
     name: Build
 
     strategy:
+      # Finish other jobs even if one fails
+      fail-fast: false
+
       matrix:
         runs-on:
           - macos-latest
