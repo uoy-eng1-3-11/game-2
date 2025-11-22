@@ -1,0 +1,52 @@
+name: Gradle
+
+on:
+  push:
+    branches:
+      - development
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      # Finish other jobs even if one fails
+      fail-fast: false
+
+      matrix:
+        include:
+          - name: Linux
+            runs-on: ubuntu-latest
+          - name: MacOS
+            runs-on: macos-latest
+          - name: Windows
+            runs-on: windows-latest
+
+    name: Build (${{ matrix.name }})
+    runs-on: ${{ matrix.runs-on }}
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v6
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          add-job-summary: never
+
+      - name: Build project
+        run: ./gradlew build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: ${{ matrix.name }}.jar
+          path: lwjgl3/build/libs/Maze Game-*.jar
