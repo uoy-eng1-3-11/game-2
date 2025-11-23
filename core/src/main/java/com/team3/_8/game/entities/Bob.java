@@ -1,4 +1,4 @@
-package com.team3._8.game;
+package com.team3._8.game.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -7,23 +7,25 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * This is the class for the character (Bob), inheriting from Entity
- *
- * @author Lenny, Henry
+/** 
+ * This is the class for the character (Bob), inheriting from Entity.
  */
 public class Bob extends CollidableEntity {
 
   private final Set<String> inventory = new HashSet<String>();
+  
   // Used to control animation time
   float stateTime = 0f;
+
   // Creates an inventory, which will be filled with String IDs
   private float collision__size_change; // offset for collision size, required for move()
+
   // Holds the name of the animation linked to the animation
   private Map<String, Animation<TextureRegion>> bob_animations;
   private String animationOverride = "";

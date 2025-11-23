@@ -1,12 +1,10 @@
-package com.team3._8.game;
+package com.team3._8.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
  * This is the class for all the entities in the game, to inherit from.
- *
- * @author Lenny
  */
 abstract class Entity {
 

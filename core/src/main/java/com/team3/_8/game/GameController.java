@@ -8,9 +8,7 @@ import java.util.Map;
 
 /**
  * This class will be for all the static methods that influence the game and are currently taking up
- * space We can rename later if we need to
- *
- * @author Lenny
+ * space We can rename later if we need to.
  */
 public class GameController {
   // Enables developer features (e.g. camera zooming)

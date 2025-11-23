@@ -1,4 +1,4 @@
-package com.team3._8.game;
+package com.team3._8.game.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -7,18 +7,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Defines the campus security geese characters
- *
- * @author Henry
+/** 
+ * Defines the campus security geese characters. 
  */
 public class CampusSecurity extends InteractableEntity {
+
   // Return data map used to send data to calling instance
   final Map<String, Boolean> returnData = new HashMap<>();
   private Animation<TextureRegion> campusSecurity;
+
   // Variables used to configure sprite
   private float stateTime = 0f;
   private float x = 0;

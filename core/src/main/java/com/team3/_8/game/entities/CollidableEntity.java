@@ -1,14 +1,12 @@
-package com.team3._8.game;
+package com.team3._8.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
-/**
- * This is the class for all the entities with collision boxes, to inherit from
- *
- * @author Lenny, Isaac M
+/** 
+ * This is the class for all the entities with collision boxes, to inherit from. 
  */
-abstract class CollidableEntity extends Entity {
+abstract public class CollidableEntity extends Entity {
 
   protected Rectangle collisionBox;
 

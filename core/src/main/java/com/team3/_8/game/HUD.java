@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.team3._8.game.entities.Bob;
+
 import java.util.Map;
 import java.util.Set;
 
@@ -16,8 +18,6 @@ import java.util.Set;
  * have all the decision-making in here.
  *
  * <p>This avoids lots of passing textures through.
- *
- * @author Lenny, Henry
  */
 public class HUD {
 

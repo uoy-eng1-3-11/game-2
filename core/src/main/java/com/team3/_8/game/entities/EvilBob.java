@@ -1,4 +1,4 @@
-package com.team3._8.game;
+package com.team3._8.game.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -11,13 +11,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.team3._8.game.TextBubble;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Defines the evil bob character used in the surprise event
- *
- * @author Henry
+ * Defines the evil bob character used in the surprise event.
  */
 public class EvilBob extends InteractableEntity {
   // Return data map used to send data to calling instance

@@ -14,6 +14,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.team3._8.game.Entities.Bob;
+import com.team3._8.game.Entities.CampusSecurity;
+import com.team3._8.game.Entities.CollectableEntity;
+import com.team3._8.game.Entities.EvilBob;
+
 import java.util.HashMap;
 import java.util.Map;
 

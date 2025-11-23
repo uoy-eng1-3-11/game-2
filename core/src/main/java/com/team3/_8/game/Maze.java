@@ -10,6 +10,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.team3._8.game.entities.CollidableEntity;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -120,16 +122,17 @@ public class Maze {
         left_wall_X = wall_collision.getX() + effective_speed;
         wall_Y = wall_collision.getY() + effective_speed;
 
-        if (Intersector.overlaps(wall_collision, entity.collisionBox)) {
+        if (Intersector.overlaps(wall_collision, entity.getCollisionBox())) {
           // If entity collides with box, which side of the box
           // Use a whiteboard to visualise
-          if ((left_wall_X) > entity.collisionBox.getX() + entity.collisionBox.getWidth()) {
+          Rectangle collisionBox = entity.getCollisionBox();
+          if ((left_wall_X) > collisionBox.getX() + collisionBox.getWidth()) {
             movement_halter[0] = true;
-          } else if (right_wall_X < entity.collisionBox.getX()) {
+          } else if (right_wall_X < collisionBox.getX()) {
             movement_halter[2] = true;
-          } else if ((wall_Y > entity.collisionBox.getY())) {
+          } else if ((wall_Y > collisionBox.getY())) {
             movement_halter[3] = true;
-          } else if ((wall_Y < entity.collisionBox.getY() + entity.collisionBox.getHeight())) {
+          } else if ((wall_Y < collisionBox.getY() + collisionBox.getHeight())) {
             movement_halter[1] = true;
           }
         }
@@ -197,7 +200,7 @@ public class Maze {
    */
   public boolean HitsWinLayer(CollidableEntity player) {
     Rectangle wall_collision = ((RectangleMapObject) win_layer).getRectangle();
-    return Intersector.overlaps(wall_collision, player.collisionBox);
+    return Intersector.overlaps(wall_collision, player.getCollisionBox());
   }
 
   /**
@@ -211,7 +214,7 @@ public class Maze {
       return false;
     }
     Rectangle wall_collision = ((RectangleMapObject) event_layer).getRectangle();
-    if (Intersector.overlaps(wall_collision, player.collisionBox)) {
+    if (Intersector.overlaps(wall_collision, player.getCollisionBox())) {
       event_triggered = true;
       return true;
     }
