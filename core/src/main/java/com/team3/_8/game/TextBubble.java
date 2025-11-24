@@ -7,10 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
-* Text bubble that can be spawned by events
-*
-* @author Henry
-*/
+ * Text bubble that can be spawned by events.
+ */
 public class TextBubble {
     private final Sprite bubbleSprite;
     private final BitmapFont font;

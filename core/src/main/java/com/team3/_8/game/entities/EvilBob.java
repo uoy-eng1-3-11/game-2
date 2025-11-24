@@ -17,8 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-* Defines the evil bob character used in the surprise event.
-*/
+ * Defines the evil bob character used in the surprise event.
+ */
 public class EvilBob extends InteractableEntity {
 	// Return data map used to send data to calling instance
 	final HashMap<String, Boolean> returnData = new HashMap<>();

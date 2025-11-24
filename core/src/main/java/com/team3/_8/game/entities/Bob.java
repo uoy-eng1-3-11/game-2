@@ -14,8 +14,8 @@ import java.util.Map;
 import java.util.Set;
 
 /** 
-* This is the class for the character (Bob), inheriting from Entity.
-*/
+ * This is the class for the character (Bob), inheriting from Entity.
+ */
 public class Bob extends CollidableEntity {
     
     private final Set<String> inventory = new HashSet<String>();

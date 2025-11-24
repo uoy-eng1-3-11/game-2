@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** 
-* Defines the campus security geese characters. 
-*/
+ * Defines the campus security geese characters. 
+ */
 public class CampusSecurity extends InteractableEntity {
     
     // Return data map used to send data to calling instance

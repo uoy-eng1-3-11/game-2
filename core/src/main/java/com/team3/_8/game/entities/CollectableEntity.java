@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /** 
-* This is a class inheriting from CollidableEntity which is for entities that can be collected. It
-* makes entities that have been overlapped with collected and stops rendering them. 
-*/
+ * This is a class inheriting from CollidableEntity which is for entities that can be collected. It
+ * makes entities that have been overlapped with collected and stops rendering them. 
+ */
 public class CollectableEntity extends CollidableEntity {
     
     private final String type;

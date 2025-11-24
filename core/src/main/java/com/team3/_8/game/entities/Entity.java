@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
-* This is the class for all the entities in the game, to inherit from.
-*/
+ * This is the class for all the entities in the game, to inherit from.
+ */
 abstract class Entity {
     
     protected final Sprite sprite;
