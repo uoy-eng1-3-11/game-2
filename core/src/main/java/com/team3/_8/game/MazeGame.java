@@ -1,6 +1,6 @@
 package com.team3._8.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -12,8 +12,9 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.team3._8.game.Screens.LoseScreen;
+import com.team3._8.game.Screens.TitleScreen;
 import com.team3._8.game.entities.Bob;
 import com.team3._8.game.entities.CampusSecurity;
 import com.team3._8.game.entities.CollectableEntity;
@@ -23,14 +24,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
-public class MazeGame extends ApplicationAdapter {
+public class MazeGame extends Game {
+
     // Constants in arbitrary units for the camera
     static final int WORLD_WIDTH = 200;
     static final int WORLD_HEIGHT = 200;
     
     // Constants in arbitrary units for Bob's size
-    static final int BOB_WIDTH = 15;
-    static final int BOB_HEIGHT = 15;
+    public static final int BOB_WIDTH = 15;
+    public static final int BOB_HEIGHT = 15;
     
     // Holds created campusSecurity sprites and tracks if they exist
     private final CampusSecurity[] allCampusSecuritySprites = new CampusSecurity[5];
@@ -46,12 +48,12 @@ public class MazeGame extends ApplicationAdapter {
     private boolean paused = false; // Variable to see if the game is paused
     private int events;
     private float timer;
-    private BitmapFont font;
+    public BitmapFont font;
     private OrthographicCamera camera;
-    private Viewport viewport;
+    public ExtendViewport viewport;
     
     // The two sprite batches -> ones for the main game, and one for the HUD
-    private SpriteBatch batch;
+    public SpriteBatch batch;
     private HUD hud;
     
     private Sprite bobSprite;
@@ -96,8 +98,7 @@ public class MazeGame extends ApplicationAdapter {
         
         loadFonts();
         
-        // We are using a Fill Viewport, since the entire screen is covered. Aspect ratio is maintained.
-        viewport = new FillViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
+        viewport = new ExtendViewport(WORLD_WIDTH, WORLD_HEIGHT);
         
         batch = new SpriteBatch();
         
@@ -105,6 +106,8 @@ public class MazeGame extends ApplicationAdapter {
         eventTracker = GameController.setEventMap();
         
         createHUD();
+
+        this.setScreen(new TitleScreen(this));
     }
     
     private void createLayers() {
@@ -172,7 +175,8 @@ public class MazeGame extends ApplicationAdapter {
     /** Renders different screens based on activeScreen configuration */
     @Override
     public void render() {
-        if (activeScreen == 0) {
+        super.render();
+        /*if (activeScreen == 0) {
             titleScreenRender();
         } else if (activeScreen == 1) {
             gameScreenRender();
@@ -182,7 +186,7 @@ public class MazeGame extends ApplicationAdapter {
             winScreenRender();
         } else if (activeScreen == 4) {
             loseScreenRender();
-        }
+        }*/
     }
         
     /** Runs the code for the game screen every frame */
