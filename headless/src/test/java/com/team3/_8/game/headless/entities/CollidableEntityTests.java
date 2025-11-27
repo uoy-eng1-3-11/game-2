@@ -28,20 +28,20 @@ class CollidableEntityTests extends AbstractHeadlessGdxTest {
         TestEntity entity_2 = new TestEntity(sprite, 0.0f, 0.21f);
 
         assertEquals(
-            entity_2.getCollisionBox().x,
-            entity_1.getCollisionBox().x - 0.21f
+            entity_1.getCollisionBox().x - 0.21f,
+            entity_2.getCollisionBox().x
         );
         assertEquals(
-            entity_2.getCollisionBox().y,
-            entity_1.getCollisionBox().y - 0.21f
+            entity_1.getCollisionBox().y - 0.21f,
+            entity_2.getCollisionBox().y
         );
         assertEquals(
-            entity_2.getCollisionBox().width,
-            entity_1.getCollisionBox().width + 0.42f
+            entity_1.getCollisionBox().width + 0.42f,
+            entity_2.getCollisionBox().width
         );
         assertEquals(
-            entity_2.getCollisionBox().height,
-            entity_1.getCollisionBox().height + 0.42f
+            entity_1.getCollisionBox().height + 0.42f,
+            entity_2.getCollisionBox().height
         );
     }
 
@@ -53,8 +53,8 @@ class CollidableEntityTests extends AbstractHeadlessGdxTest {
 
         entity.dispose();
 
-        assertEquals(entity.getCollisionBox().width, 0);
-        assertEquals(entity.getCollisionBox().height, 0);
+        assertEquals(0, entity.getCollisionBox().width);
+        assertEquals(0, entity.getCollisionBox().height);
     }
 }
 
