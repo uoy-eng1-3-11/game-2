@@ -47,7 +47,7 @@ public class TitleScreen implements Screen {
         GlyphLayout centreLayout = new GlyphLayout(GAME.font, CENTER_TEXT);
         GlyphLayout bottomLayout = new GlyphLayout(GAME.font, BOTTOM_TEXT);
         GlyphLayout[] textLayout = {topLayout, centreLayout, bottomLayout};
-        Map<String, Float> layoutValues = Utils.positionText(GAME.viewport, textLayout, false, false);
+        Map<String, Float> layoutValues = Utils.positionText(GAME.viewport, textLayout);
         
         GAME.viewport.apply();
         batch.setProjectionMatrix(GAME.viewport.getCamera().combined);

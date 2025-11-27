@@ -31,7 +31,7 @@ public class TutorialScreen implements Screen {
 
         GlyphLayout topLayout = new GlyphLayout(GAME.font, TOP_TEXT);
         GlyphLayout[] textLayout = {topLayout};
-        layoutValues = Utils.positionText(GAME.viewport, textLayout, true, false);
+        layoutValues = Utils.positionText(GAME.viewport, textLayout);
     }
     
     @Override

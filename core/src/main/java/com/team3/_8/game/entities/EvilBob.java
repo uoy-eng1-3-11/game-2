@@ -52,6 +52,10 @@ public class EvilBob extends InteractableEntity {
 		loadTextures();
 		createTextBubble();
 	}
+
+	public void update(float delta) {
+		return;
+	}
 	
 	/**
 	* Handles interaction with character when started

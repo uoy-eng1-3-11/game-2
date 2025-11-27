@@ -164,7 +164,7 @@ public class MazeGame extends Game {
     
     private void createHUD() {
         SpriteBatch HUDBatch = new SpriteBatch();
-        hud = new HUD(HUDBatch, events);
+        hud = new HUD(HUDBatch);
     }
     
     private void loadFonts() {

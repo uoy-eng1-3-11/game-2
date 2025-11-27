@@ -25,7 +25,7 @@ public class WinScreen implements Screen {
         GlyphLayout topLayout = new GlyphLayout(GAME.font, TOP_TEXT);
         GlyphLayout bottomLayout = new GlyphLayout(GAME.font, BOTTOM_TEXT);
         GlyphLayout[] textLayout = {topLayout, bottomLayout};
-        layoutValues = Utils.positionText(GAME.viewport, textLayout, false, false);
+        layoutValues = Utils.positionText(GAME.viewport, textLayout);
     }
 
     @Override

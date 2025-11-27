@@ -25,7 +25,7 @@ public class HUD {
     private final Texture keycard;
     private final Texture pause;
     
-    public HUD(Batch HUDbatch, int events) {
+    public HUD(Batch HUDbatch) {
         this.HUDbatch = HUDbatch;
         this.keycard = new Texture("keycard.png");
         this.pause = new Texture("libgdx.png");

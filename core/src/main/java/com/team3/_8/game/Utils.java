@@ -16,7 +16,7 @@ public final class Utils {
     * @param bottom Position bottom If top and bottom are both false, defaults to centre
     * @return map x,y values for positioning. Accessed via x1, x2 etc.
     */
-    public static Map<String, Float> positionText(ExtendViewport viewport, GlyphLayout[] textLayout, boolean top, boolean bottom) {
+    public static Map<String, Float> positionText(ExtendViewport viewport, GlyphLayout[] textLayout) {
         // Holds position values to return
         Map<String, Float> returnValues = new HashMap<>();
         // Used to evenly space lines
@@ -26,13 +26,7 @@ public final class Utils {
         float offset;
         
         // Offsets text based on positioning on screen
-        if (top) {
-            offset = 120f;
-        } else if (bottom) {
-            offset = -120f;
-        } else {
-            offset = (numLines - 1) * spacing;
-        }
+        offset = (numLines - 1) * spacing;
         
         // Centre of the screen in world coordinates
         float centerX = viewport.getWorldWidth()/2f;

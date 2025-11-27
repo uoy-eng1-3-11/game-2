@@ -38,7 +38,7 @@ public class LoseScreen implements Screen {
         GlyphLayout centerLayout = new GlyphLayout(GAME.font, CENTER_TEXT);
         GlyphLayout bottomLayout = new GlyphLayout(GAME.font, BOTTOM_TEXT);
         GlyphLayout[] textLayout = {topLayout, centerLayout, bottomLayout};
-        layoutValues = Utils.positionText(GAME.viewport, textLayout, false, false);
+        layoutValues = Utils.positionText(GAME.viewport, textLayout);
 
         bobSprite = new Sprite();
 

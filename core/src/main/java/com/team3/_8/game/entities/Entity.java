@@ -6,10 +6,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 /**
  * This is the class for all the entities in the game, to inherit from.
  */
-abstract class Entity {
+public abstract class Entity {
     
     protected final Sprite sprite;
     protected float speed;
+    protected boolean isExpired;
     
     /**
     * Creates the entity based on the sprite given and creates its collision box
@@ -21,6 +22,8 @@ abstract class Entity {
         this.sprite = sprite;
         this.speed = speed;
     }
+
+    public abstract void update(float delta);
     
     /**
     * Draws the sprite on the spritebatch provided
@@ -58,5 +61,9 @@ abstract class Entity {
     
     public float getY() {
         return sprite.getY();
+    }
+
+    public boolean isExpired() {
+        return isExpired;
     }
 }

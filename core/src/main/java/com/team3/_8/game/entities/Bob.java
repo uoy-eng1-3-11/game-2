@@ -74,6 +74,10 @@ public class Bob extends CollidableEntity {
         Array<TextureRegion> RocketDown = flipFrames(rocketUpFrames, false, true);
         bob_animations.put("RocketDown", new Animation<TextureRegion>(0.5f, RocketDown));
     }
+
+    public void update(float delta) {
+        move();
+    }
     
     /**
     * This method controls the movement of Bob, by moving him around the axis, depending on the input
