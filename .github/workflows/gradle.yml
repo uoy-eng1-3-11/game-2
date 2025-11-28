@@ -47,18 +47,21 @@ jobs:
 
       - name: Upload executable
         uses: actions/upload-artifact@v5
+        if: always()
         with:
           name: Executable (${{ matrix.name }})
           path: lwjgl3/build/libs/Maze Game-*.jar
 
       - name: Upload JUnit report
         uses: actions/upload-artifact@v5
+        if: always()
         with:
           name: JUnit (${{ matrix.name }})
           path: headless/build/reports/tests/test/
 
       - name: Upload JaCoCo report
         uses: actions/upload-artifact@v5
+        if: always()
         with:
           name: JaCoCo (${{ matrix.name }})
           path: headless/build/reports/jacoco/test/html/
