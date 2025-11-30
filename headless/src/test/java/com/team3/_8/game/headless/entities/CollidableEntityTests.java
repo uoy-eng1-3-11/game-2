@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.team3._8.game.entities.CollidableEntity;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class CollidableEntityTests extends AbstractHeadlessGdxTest {
     class TestEntity extends CollidableEntity {
@@ -17,6 +19,10 @@ class CollidableEntityTests extends AbstractHeadlessGdxTest {
         }
 
         public void move(boolean[] movement_halter) {
+        }
+
+        public void setPosition(float x, float y) {
+            sprite.setPosition(x, y);
         }
     }
 
@@ -55,6 +61,46 @@ class CollidableEntityTests extends AbstractHeadlessGdxTest {
 
         assertEquals(0, entity.getCollisionBox().width);
         assertEquals(0, entity.getCollisionBox().height);
+    }
+
+    @Test
+    public void isColliding() {
+        Texture texture = new Texture("sprites/sprite_images/evil-bob_1.png");
+        Sprite sprite = new Sprite(texture);
+
+        TestEntity a = new TestEntity(sprite, 0.0f);
+        a.setPosition(0.0f, 0.0f);
+        a.update(0.0f);
+
+        TestEntity b = new TestEntity(sprite, 0.0f);
+        b.setPosition(sprite.getWidth() - 0.1f, 0.0f);
+        b.update(0.0f);
+        assertTrue(a.isColliding(b));
+
+        TestEntity c = new TestEntity(sprite, 0.0f);
+        c.setPosition(0.0f, sprite.getHeight() - 0.1f);
+        c.update(0.0f);
+        assertTrue(a.isColliding(c));
+    }
+
+    @Test
+    public void isNotColliding() {
+        Texture texture = new Texture("sprites/sprite_images/evil-bob_1.png");
+        Sprite sprite = new Sprite(texture);
+
+        TestEntity a = new TestEntity(sprite, 0.0f);
+        a.setPosition(0.0f, 0.0f);
+        a.update(0.0f);
+
+        TestEntity b = new TestEntity(sprite, 0.0f);
+        b.setPosition(sprite.getWidth(), 0.0f);
+        b.update(0.0f);
+        assertFalse(a.isColliding(b));
+
+        TestEntity c = new TestEntity(sprite, 0.0f);
+        c.setPosition(0.0f, sprite.getHeight());
+        c.update(0.0f);
+        assertFalse(a.isColliding(c));
     }
 }
 
