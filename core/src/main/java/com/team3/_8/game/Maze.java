@@ -20,10 +20,10 @@ import java.util.Set;
  */
 public class Maze {
     
-    private final TiledMap map; // the map
+    private static TiledMap map; // the map
     private final TiledMapRenderer map_render; // the rendere
-    private final Set<MapObjects> collidable_objects; // Map object set of all collidable layers
-    private final int[] visible_layers;
+    private static Set<MapObjects> collidable_objects; // Map object set of all collidable layers
+    private static int[] visible_layers;
     // Index of every map layer, set to its own index if it should be visible.
     // Layer 0 must always be visible
     // Needs to be int[] because the MapRenderer.render method is shit
@@ -91,7 +91,7 @@ public class Maze {
     * @return a boolean array of size 4 which indicates which side of the wall is being hit 0-left,
     *     1-top, 2-right, 3-bottom
     */
-    public boolean[] hitsWall(CollidableEntity entity, float delta) {
+    public static boolean[] hitsWall(CollidableEntity entity, float delta) {
         boolean[] movement_halter = new boolean[4];
         // Walls of the collision box, used to determine which direction entity is colliding in
         double right_wall_X;
@@ -145,7 +145,7 @@ public class Maze {
     * @param collision_layer name of the object layer to be made non-collidable
     * @return boolean to indicate success of removal, true if successful
     */
-    public boolean removeCollisionLayer(String collision_layer) {
+    public static boolean removeCollisionLayer(String collision_layer) {
         return collidable_objects.remove((map.getLayers().get(collision_layer)).getObjects());
     }
     
@@ -171,7 +171,7 @@ public class Maze {
     * @param layer name of layer to be removed
     * @return boolean to indicate success of removal, true if removed successfully
     */
-    public boolean removeVisibleLayer(String layer) {
+    public static boolean removeVisibleLayer(String layer) {
         int layer_index = map.getLayers().getIndex(layer);
         if (layer_index == -1) {
             return false;

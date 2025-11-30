@@ -67,6 +67,8 @@ public class TextBubble {
             bubbleSprite.setPosition(x, y);
             bubbleSprite.setSize(width, height);
             bubbleSprite.draw(batch);
+
+            System.out.println(x+","+y);
             
             // Sets font colour & draws in text bubble
             font.setColor(Color.BLACK);

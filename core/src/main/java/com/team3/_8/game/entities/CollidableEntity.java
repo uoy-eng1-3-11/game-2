@@ -56,6 +56,14 @@ abstract public class CollidableEntity extends Entity {
             this.sprite.getWidth() + Collision__size_change * 2,
             this.sprite.getHeight() + Collision__size_change * 2);
     }
+
+    public void update(float delta) {
+        updateCollisionBox();
+    }
+
+    public boolean isColliding(CollidableEntity other) {
+        return collisionBox.overlaps(other.getCollisionBox());
+    }
         
     public Rectangle getCollisionBox() {
         return collisionBox;
@@ -87,14 +95,5 @@ abstract public class CollidableEntity extends Entity {
         this.collisionBox.setX(this.sprite.getX() - collision__size_change);
         this.collisionBox.setY(this.sprite.getY() - collision__size_change);
     }
-            
-    /**
-    * This method controls the movement of the entity, updateCollisionBox should be called at end
-    *
-    * @param movement_halter the directions that bob cannot move, false allowing movement 0-left,
-    *     1-top, 2-right, 3-bottom
-    */
-    @Override
-    public abstract void move(boolean[] movement_halter);
 }
         

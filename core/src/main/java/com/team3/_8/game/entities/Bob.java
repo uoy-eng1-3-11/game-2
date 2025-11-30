@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.team3._8.game.Maze;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,9 +17,11 @@ import java.util.Set;
 /** 
  * This is the class for the character (Bob), inheriting from Entity.
  */
-public class Bob extends CollidableEntity {
+public final class Bob extends CollidableEntity {
     
     private final Set<String> inventory = new HashSet<String>();
+
+    public static Bob bob;
     
     // Used to control animation time
     float stateTime = 0f;
@@ -33,11 +36,19 @@ public class Bob extends CollidableEntity {
     
     public Bob(Sprite sprite, float speed) {
         super(sprite, speed);
+        if (bob != null) {
+            throw new RuntimeException("Two bob's can not exist at the same time");
+        }
+        bob = this;
         loadTextures();
     }
     
     public Bob(Sprite sprite, float speed, float collision__size_change) {
         super(sprite, speed, collision__size_change);
+        if (bob != null) {
+            throw new RuntimeException("Two bob's can not exist at the same time");
+        }
+        bob = this;
         this.collision__size_change = collision__size_change;
         loadTextures();
     }
@@ -77,6 +88,7 @@ public class Bob extends CollidableEntity {
 
     public void update(float delta) {
         move();
+        updateCollisionBox(collision__size_change);
     }
     
     /**
@@ -85,8 +97,8 @@ public class Bob extends CollidableEntity {
     * @param movement_halter the directions that bob cannot move, false allowing movement 0-left,
     *     1-top, 2-right, 3-bottom
     */
-    @Override
-    public void move(boolean[] movement_halter) {
+    public void move() {
+        boolean movement_halter[] = Maze.hitsWall(this, Gdx.graphics.getDeltaTime());
         float delta = Gdx.graphics.getDeltaTime();
         
         // Timer for animation
@@ -136,16 +148,6 @@ public class Bob extends CollidableEntity {
             }
         }
         
-        updateCollisionBox(collision__size_change);
-        
-        // Sets bob sprite to run the animation configured above
-        if (animationOverride.equals("Squash")) {
-            if (!reset) {
-                reset = true;
-                stateTime = 0f;
-            }
-            current_animation = bob_animations.get("Squash").getKeyFrame(stateTime, true);
-        }
         sprite.setRegion(current_animation);
     }
     
@@ -171,6 +173,14 @@ public class Bob extends CollidableEntity {
     
     public Set<String> getInventory() {
         return this.inventory;
+    }
+
+    public boolean hasItem(String item){
+        return inventory.contains(item);
+    }
+
+    public void setPosition(float x, float y) {
+        sprite.setPosition(x, y);
     }
     
     public void setAnimation(String animationName) {

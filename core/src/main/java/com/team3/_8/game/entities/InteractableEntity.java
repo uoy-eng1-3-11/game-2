@@ -14,6 +14,14 @@ abstract class InteractableEntity extends CollidableEntity {
     public InteractableEntity(Sprite sprite, float speed) {
         super(sprite, speed);
     }
+
+    @Override
+    public boolean isColliding(CollidableEntity other) {
+        if (other == Bob.bob) {
+            return collision(other);
+        }
+        return collisionBox.overlaps(other.getCollisionBox());
+    } 
     
     /**
     * Used to check for collision & runs interaction based on collision
@@ -21,14 +29,13 @@ abstract class InteractableEntity extends CollidableEntity {
     * @param entity the other entity to be considered in the collision
     * @return a map of any event IDs and whether they are triggered
     */
-    public Map<String, Boolean> collision(CollidableEntity entity) {
+    public boolean collision(CollidableEntity entity) {
         if (entity.getCollisionBox().overlaps(this.collisionBox)) {
             // Returns any data from the interaction back to the call instance
-            returnData = startInteraction();
+            return startInteraction();
         } else {
-            returnData = stopInteraction();
+            return stopInteraction();
         }
-        return returnData;
     }
     
     /**
@@ -36,18 +43,18 @@ abstract class InteractableEntity extends CollidableEntity {
     *
     * @return Map of eventIDs and whether it is triggered
     */
-    public abstract Map<String, Boolean> startInteraction();
+    public abstract boolean startInteraction();
     
     /**
     * Stops the interaction with entity if the interaction can be stopped early
     *
     * @return map of eventIDs and whether they have been stopped
     */
-    public abstract Map<String, Boolean> stopInteraction();
+    public abstract boolean stopInteraction();
     
-    @Override
-    public void move(boolean[] movement_halter) {
-        // Not currently implemented, but useful if you want the entity to move
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
-    }
+    //@Override
+    //public void move(boolean[] movement_halter) {
+    //    // Not currently implemented, but useful if you want the entity to move
+    //    throw new UnsupportedOperationException("Unimplemented method 'move'");
+    //}
 }

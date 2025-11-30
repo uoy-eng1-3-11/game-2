@@ -1,7 +1,7 @@
 package com.team3._8.game.entities;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /** 
  * This is a class inheriting from CollidableEntity which is for entities that can be collected. It
@@ -17,6 +17,14 @@ public class CollectableEntity extends CollidableEntity {
         this.type = type;
         this.collected = false;
     }
+
+    @Override
+    public boolean isColliding(CollidableEntity other) {
+        if (other == Bob.bob) {
+            return collected((Bob) other);
+        }
+        return collisionBox.overlaps(other.getCollisionBox());
+    } 
     
     /**
     * Method that checks if the collision boxes of the collectable and of Bob have overlapped - if so
@@ -33,6 +41,8 @@ public class CollectableEntity extends CollidableEntity {
         }
         return false;
     }
+
+    public void update(float delta) {}
     
     /**
     * Overrides the draw class, to not draw the entity if it has been collected
@@ -40,15 +50,11 @@ public class CollectableEntity extends CollidableEntity {
     * @param batch sprite batch to be drawn
     */
     @Override
-    public void draw(Batch batch) {
+    public void draw(SpriteBatch batch) {
         if (!this.collected) {
             this.sprite.draw(batch);
         } else {
             this.dispose();
         }
     }
-    
-    /** implements move to do nothing as collectable entities cannot move */
-    @Override
-    public void move(boolean[] movement_halter) {}
 }

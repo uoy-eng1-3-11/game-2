@@ -84,17 +84,16 @@ public class MazeGame extends Game {
         timer = 0f;
         events = 0;
         
-        createLayers();
-        
-        createBob();
-        
-        createEvilBob();
-        
-        createKeycard();
-        
-        createTutorial();
-        
-        createCamera(width, height);
+        //createLayers();
+        //
+        //
+        //createEvilBob();
+        //
+        //createKeycard();
+        //
+        //createTutorial();
+        //
+        //createCamera(width, height);
         
         loadFonts();
         
@@ -190,7 +189,7 @@ public class MazeGame extends Game {
     }
         
     /** Runs the code for the game screen every frame */
-    private void gameScreenRender() {
+    /*private void gameScreenRender() {
         // The input for the zoom in and out
         // Development modes
         boolean dev_zoom = false;
@@ -382,7 +381,7 @@ public class MazeGame extends Game {
         font.draw(batch, bottomLayout, layoutValues.get("x2"), layoutValues.get("y2"));
         
         batch.end();
-    }
+    }*/
                     
     /**
     * Positions text passed in to format nicely on the screen
@@ -522,7 +521,7 @@ public class MazeGame extends Game {
         // Checks for collision with CampusSecurity & resets player to start if so
         if (campusSecurityCreated) {
             for (CampusSecurity sec : allCampusSecuritySprites) {
-                campusSecurityReturnData = sec.collision(bob);
+                //campusSecurityReturnData = sec.collision(bob);
                 if (campusSecurityReturnData.containsKey("Reset Player Position")) {
                     if (campusSecurityReturnData.get("Reset Player Position")) {
                         bobSprite.setPosition(100, 500);

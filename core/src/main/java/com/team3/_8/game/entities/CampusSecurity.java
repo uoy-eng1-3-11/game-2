@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.team3._8.game.Maze;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,22 +39,36 @@ public class CampusSecurity extends InteractableEntity {
         // Loads animation textures
         loadTextures();
     }
+
+    public void update(float delta) {
+
+        move();
+        // Updates collision box and sprite position when moved
+        if (this.sprite.getX() != this.x || this.sprite.getY() != this.y) {
+            if (initialisePos) {
+                sprite.setPosition(x, y);
+                initialisePos = false;
+            }
+            updateCollisionBox();
+            this.x = x;
+            this.y = y;
+        }
+    }
     
     /** Configures interaction with entity */
     @Override
-    public Map<String, Boolean> startInteraction() {
+    public boolean startInteraction() {
         // Sets command to MazeGame.java to reset
         // player position on collision with this sprite
-        returnData.put("Reset Player Position", true);
-        return returnData;
+        Bob.bob.setPosition(100, 500);
+        return true;
     }
     
     /** Configures end of interaction with entity */
     @Override
-    public Map<String, Boolean> stopInteraction() {
+    public boolean stopInteraction() {
         // Stops reset of player position, when interaction has ended
-        returnData.put("Reset Player Position", false);
-        return returnData;
+        return true;
     }
     
     /** Loads the animation textures from atlas into the animation variables */
@@ -85,37 +100,23 @@ public class CampusSecurity extends InteractableEntity {
         // Sets animation frame
         TextureRegion current_animation = campusSecurity.getKeyFrame(stateTime, true);
         sprite.setRegion(current_animation);
-        
-        // Updates collision box and sprite position when moved
-        if (this.sprite.getX() != this.x || this.sprite.getY() != this.y) {
-            if (initialisePos) {
-                sprite.setPosition(x, y);
-                initialisePos = false;
-            }
-            updateCollisionBox();
-            this.x = x;
-            this.y = y;
-        }
-        
-        // Configure the sprite to move up or down
-        if (movement_halter[3]) {
-            up = false;
-        } else if (movement_halter[1]) {
-            up = true;
-        }
-        // Runs movement
-        move(up);
         sprite.draw(batch);
     }
     
     /**
     * Moves the campus security sprites up or down based in passed boolean value
-    *
-    * @param up - set to true to move up, false to move down
     */
-    private void move(boolean up) {
+    private void move() {
         // Time used to calculate speed to move at
         float delta = Gdx.graphics.getDeltaTime();
+        
+        // Configure the sprite to move up or down
+        boolean[] movement_halter = Maze.hitsWall(this, delta);
+        if (movement_halter[3]) {
+            up = false;
+        } else if (movement_halter[1]) {
+            up = true;
+        }
         
         // Moves sprite up or down
         if (up) {
@@ -124,6 +125,11 @@ public class CampusSecurity extends InteractableEntity {
             sprite.translateY(-this.speed * delta);
         }
         
+        
+    }
+
+    @Override
+    public void updateCollisionBox(){
         // Corrects collision box size
         float inset = 8f;
         float newWidth = Math.max(0f, this.sprite.getWidth() - inset * 2f);
@@ -131,5 +137,5 @@ public class CampusSecurity extends InteractableEntity {
         this.collisionBox.setY(this.sprite.getY());
         this.collisionBox.setWidth(newWidth);
         this.collisionBox.setHeight(this.sprite.getHeight());
-    }
+    } 
 }

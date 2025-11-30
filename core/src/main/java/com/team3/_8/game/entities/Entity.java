@@ -1,14 +1,14 @@
 package com.team3._8.game.entities;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * This is the class for all the entities in the game, to inherit from.
  */
 public abstract class Entity {
     
-    protected final Sprite sprite;
+    protected Sprite sprite;
     protected float speed;
     protected boolean isExpired;
     
@@ -30,7 +30,7 @@ public abstract class Entity {
     *
     * @param batch sprite batch to be drawn
     */
-    public void draw(Batch batch) {
+    public void draw(SpriteBatch batch) {
         this.sprite.draw(batch);
     }
     
@@ -38,14 +38,6 @@ public abstract class Entity {
     public void dispose() {
         this.sprite.getTexture().dispose();
     }
-    
-    /**
-    * This method controls the movement of the entity
-    *
-    * @param movement_halter the directions that bob cannot move, false allowing movement 0-left,
-    *     1-top, 2-right, 3-bottom
-    */
-    public abstract void move(boolean[] movement_halter);
     
     public Sprite getSprite() {
         return sprite;
@@ -61,6 +53,14 @@ public abstract class Entity {
     
     public float getY() {
         return sprite.getY();
+    }
+
+    public float getOriginX() {
+        return sprite.getX() + sprite.getWidth()/2f;
+    }
+
+    public float getOriginY() {
+        return sprite.getY() + sprite.getHeight()/2f;
     }
 
     public boolean isExpired() {

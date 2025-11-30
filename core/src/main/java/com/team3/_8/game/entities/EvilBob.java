@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.team3._8.game.EntityManager;
 import com.team3._8.game.TextBubble;
 
 import java.util.HashMap;
@@ -40,7 +41,6 @@ public class EvilBob extends InteractableEntity {
 	// Variables used to control character conversation
 	private int conversationPointer = 0;
 	private boolean conversationReset = false;
-	private Boolean playerHasKeycard = false;
 	// Used to control animation time
 	private float stateTime = 0f;
 	
@@ -53,9 +53,7 @@ public class EvilBob extends InteractableEntity {
 		createTextBubble();
 	}
 
-	public void update(float delta) {
-		return;
-	}
+
 	
 	/**
 	* Handles interaction with character when started
@@ -64,19 +62,18 @@ public class EvilBob extends InteractableEntity {
 	*     etc. based on interaction
 	*/
 	@Override
-	public Map<String, Boolean> startInteraction() {
+	public boolean startInteraction() {
 		// Controls final option section of interaction
 		boolean skipChoice = false;
 		
 		// Makes textBubbleVisible if no already
 		if (!textBubbleVisible) {
 			textBubbleVisible = textBubble.hideShow();
+			System.out.println(textBubbleVisible);
 		}
 		// Handles interaction as player presses E
-		if (Gdx.input.isKeyJustPressed(Input.Keys.E)
-			|| (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && conversationPointer > 0)
-		&& !conversationReset) {
-			if (playerHasKeycard) {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.E) || (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && conversationPointer > 0) && !conversationReset) {
+			if (Bob.bob.hasItem("Keycard")) {
 				// Loads each line of the interaction text
 				textBubble.setText(script[conversationPointer]);
 				conversationPointer += 1;
@@ -97,22 +94,33 @@ public class EvilBob extends InteractableEntity {
 			if (Gdx.input.isKeyJustPressed(Input.Keys.Y)) {
 				textBubble.setText("Get out of here!");
 				
-				// Instructions to MazeGame.java to configure bob sprite and remove inventory item
-				returnData.put("Enable Rocket Bob", true);
-				returnData.put("Remove Keycard", true);
+				//// Instructions to MazeGame.java to configure bob sprite and remove inventory item
+				//returnData.put("Enable Rocket Bob", true);
+				//returnData.put("Remove Keycard", true);
 				
-				setPlayerHasKeycard(false);
+                Bob.bob.setAnimation("Rocket");
+                Bob.bob.setSpeed(150);
+				Bob.bob.removeInventory("Keycard");
+				
 				conversationReset = false;
 			} else if (Gdx.input.isKeyJustPressed(Input.Keys.N)) {
 				textBubble.setText("Release Security!");
 				
 				// Instruction to MazeGame.java to createTextBubble campusSecurity entities
-				returnData.put("Create Campus Security", true);
+				//returnData.put("Create Campus Security", true);
+				for (int i = 0; i < 4; i++) {
+					TextureAtlas atlas = new TextureAtlas("atlas/security_geese.atlas");
+        			Sprite securitySprite = new Sprite(atlas.findRegion("walking"));
+        			securitySprite.setPosition(870 + i*35, 1150);
+        			securitySprite.setSize(30, 30);
+					EntityManager.add(new CampusSecurity(sprite, 10));
+				}
+
 				conversationReset = false;
 			}
 		}
 		
-		return returnData;
+		return true;
 	}
 	
 	/**
@@ -122,7 +130,7 @@ public class EvilBob extends InteractableEntity {
 	*     etc. based on interaction
 	*/
 	@Override
-	public Map<String, Boolean> stopInteraction() {
+	public boolean stopInteraction() {
 		if (textBubbleVisible) {
 			// Resets conversation & text
 			conversationPointer = 0;
@@ -132,38 +140,30 @@ public class EvilBob extends InteractableEntity {
 			textBubbleVisible = textBubble.hideShow();
 		}
 		
-		return returnData;
+		return true;
 	}
 	
 	/**
 	* Draws evilBob character animation & text-bubble
 	*
 	* @param batch - batch from calling class
-	* @param x - x-position of sprite
-	* @param y - y-position of sprite
 	*/
-	public void draw(SpriteBatch batch, float x, float y) {
+	@Override
+	public void draw(SpriteBatch batch) {
 		// Timer for animation
 		stateTime += Gdx.graphics.getDeltaTime();
 		
 		// Sets sprite's animation to next frame
 		TextureRegion current_animation = evilBob.getKeyFrame(stateTime, true);
 		sprite.setRegion(current_animation);
-		sprite.setPosition(x, y);
 		
-		// If character has moved update collision box
-		if (x != this.x || y != this.y) {
-			updateCollisionBox();
-			this.x = x;
-			this.y = y;
-		}
 		
 		// Draws text to instruct advance of conversation
 		if (conversationPointer > 0) {
 			font.setColor(Color.WHITE);
 			font.draw(batch, "Next: E", 1105, 1085);
 		}
-		textBubble.draw(batch, 985, 1055);
+		textBubble.draw(batch, sprite.getX(), sprite.getY());
 		sprite.draw(batch);
 	}
 	
@@ -190,10 +190,5 @@ public class EvilBob extends InteractableEntity {
 		
 		// Creates animation object
 		this.evilBob = new Animation<TextureRegion>(0.5f, frames);
-	}
-	
-	/** Sets player keycard status */
-	public void setPlayerHasKeycard(boolean playerHasKeycard) {
-		this.playerHasKeycard = playerHasKeycard;
 	}
 }

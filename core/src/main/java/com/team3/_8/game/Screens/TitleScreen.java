@@ -33,7 +33,7 @@ public class TitleScreen implements Screen {
 
     private void input() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            GAME.setScreen(new LoseScreen(GAME));
+            GAME.setScreen(new GameScreen(GAME));
         }
         if (Gdx.input.isKeyPressed(Input.Keys.T)) {
             GAME.setScreen(new TutorialScreen(GAME));
