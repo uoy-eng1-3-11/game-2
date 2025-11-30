@@ -38,7 +38,7 @@ class CollectableEntityTests extends AbstractHeadlessGdxTest {
             "cactus should be collected"
         );
         assertTrue(
-            bob.getInventory().contains("cactus"),
+            bob.hasItem("cactus"),
             "\"cactus\" should be added to the inventory"
         );
     }
@@ -65,7 +65,7 @@ class CollectableEntityTests extends AbstractHeadlessGdxTest {
             "cactus should not be collected"
         );
         assertFalse(
-            bob.getInventory().contains("cactus"),
+            bob.hasItem("cactus"),
             "\"cactus\" should not be added to the inventory"
         );
     }
