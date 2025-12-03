@@ -1,6 +1,7 @@
 package com.team3._8.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.team3._8.game.HUD;
 import com.team3._8.game.Maze;
 import com.team3._8.game.Screens.GameScreen;
 
@@ -14,6 +15,7 @@ public class Keycard extends CollectableEntity{
     public boolean collected(Bob bob) {
         if (super.collected(bob)) {
             GameScreen.eventTriggered("Positive");
+            HUD.addAchievement("The key to the kingdom: unlimited access", 100);
             Maze.removeCollisionLayer("Doors");
             Maze.removeVisibleLayer("ClosedDoors");
             isExpired = true;

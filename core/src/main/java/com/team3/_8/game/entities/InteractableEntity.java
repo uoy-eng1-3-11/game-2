@@ -2,14 +2,10 @@ package com.team3._8.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * An object to create an entity which can be interacted with on collision.
  */
 abstract class InteractableEntity extends CollidableEntity {
-    Map<String, Boolean> returnData = new HashMap<>();
     
     public InteractableEntity(Sprite sprite, float speed) {
         super(sprite, speed);

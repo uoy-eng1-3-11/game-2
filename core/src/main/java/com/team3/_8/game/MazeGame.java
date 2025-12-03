@@ -2,9 +2,7 @@ package com.team3._8.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -13,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.team3._8.game.Screens.LoseScreen;
 import com.team3._8.game.Screens.TitleScreen;
 import com.team3._8.game.entities.Bob;
 import com.team3._8.game.entities.CampusSecurity;
@@ -84,7 +81,7 @@ public class MazeGame extends Game {
         timer = 0f;
         events = 0;
         
-        //createLayers();
+        //createLayers(); 
         //
         //
         //createEvilBob();
@@ -434,15 +431,7 @@ public class MazeGame extends Game {
     @Override
     public void dispose() {
         batch.dispose();
-        bob.dispose();
-        evilBob.dispose();
         font.dispose();
-        maze.dispose();
-        for (CampusSecurity campusSecuritySprite : allCampusSecuritySprites) {
-            if (campusSecurityCreated) {
-                campusSecuritySprite.dispose();
-            }
-        }
     }
                     
     /**

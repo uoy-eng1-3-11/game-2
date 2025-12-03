@@ -8,7 +8,7 @@ import com.team3._8.game.entities.CollidableEntity;
 import com.team3._8.game.entities.Entity;
 
 public final class EntityManager {
-    static ArrayList<Entity> entities = new ArrayList<Entity>();
+    public static ArrayList<Entity> entities = new ArrayList<Entity>();
 
     static ArrayList<Entity> addedEntities = new ArrayList<Entity>();
 
@@ -34,6 +34,7 @@ public final class EntityManager {
     public static void update(float delta) {
         isUpdating = true;
         ArrayList<Entity> removedEntities = new ArrayList<Entity>();
+        checkCollisions();
         for (Entity entity : entities) {
             entity.update(delta);
 
@@ -41,7 +42,6 @@ public final class EntityManager {
                 removedEntities.add(entity);
             }
         }
-        checkCollisions();
         isUpdating = false;
 
         // Adds all entities that where attempted to be added while updating.
@@ -49,9 +49,12 @@ public final class EntityManager {
             entities.add(entity);
         }
 
+        addedEntities.clear();
+
         // Removes all expired entities
         for (Entity entity : removedEntities) {
             entities.remove(entity);
+            entity.dispose();
         }
     }
 
@@ -71,6 +74,12 @@ public final class EntityManager {
     public static void draw(SpriteBatch batch){
         for (Entity entity : entities){
             entity.draw(batch);
+        }
+    }
+
+    public static void dispose() {
+        for (Entity entity : entities) {
+            entity.dispose();
         }
     }
 }

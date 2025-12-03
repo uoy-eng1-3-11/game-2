@@ -12,10 +12,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.team3._8.game.EntityManager;
+import com.team3._8.game.HUD;
 import com.team3._8.game.TextBubble;
+import com.team3._8.game.Screens.GameScreen;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Defines the evil bob character used in the surprise event.
@@ -31,9 +32,7 @@ public class EvilBob extends InteractableEntity {
 		"Y: Give Keycard\nN: Keep Keycard"
 	};
 	private Animation<TextureRegion> evilBob;
-	// Co-ordinates to draw at
-	private float x = 0;
-	private float y = 0;
+
 	// Text bubble settings for character
 	private TextBubble textBubble;
 	private boolean textBubbleVisible = false;
@@ -52,8 +51,6 @@ public class EvilBob extends InteractableEntity {
 		loadTextures();
 		createTextBubble();
 	}
-
-
 	
 	/**
 	* Handles interaction with character when started
@@ -69,7 +66,6 @@ public class EvilBob extends InteractableEntity {
 		// Makes textBubbleVisible if no already
 		if (!textBubbleVisible) {
 			textBubbleVisible = textBubble.hideShow();
-			System.out.println(textBubbleVisible);
 		}
 		// Handles interaction as player presses E
 		if (Gdx.input.isKeyJustPressed(Input.Keys.E) || (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && conversationPointer > 0) && !conversationReset) {
@@ -94,33 +90,59 @@ public class EvilBob extends InteractableEntity {
 			if (Gdx.input.isKeyJustPressed(Input.Keys.Y)) {
 				textBubble.setText("Get out of here!");
 				
-				//// Instructions to MazeGame.java to configure bob sprite and remove inventory item
-				//returnData.put("Enable Rocket Bob", true);
-				//returnData.put("Remove Keycard", true);
+				GameScreen.eventTriggered("Positive");
+				HUD.addAchievement("Rocket Power: now fly", 250);
 				
                 Bob.bob.setAnimation("Rocket");
                 Bob.bob.setSpeed(150);
 				Bob.bob.removeInventory("Keycard");
+
+				createTripWire(1000, 550);
 				
 				conversationReset = false;
-			} else if (Gdx.input.isKeyJustPressed(Input.Keys.N)) {
+			} else if (Gdx.input.isKeyJustPressed(Input.Keys.N) && !Bob.bob.hasItem("SecurityOverride")) {
 				textBubble.setText("Release Security!");
-				
-				// Instruction to MazeGame.java to createTextBubble campusSecurity entities
-				//returnData.put("Create Campus Security", true);
-				for (int i = 0; i < 4; i++) {
-					TextureAtlas atlas = new TextureAtlas("atlas/security_geese.atlas");
-        			Sprite securitySprite = new Sprite(atlas.findRegion("walking"));
-        			securitySprite.setPosition(870 + i*35, 1150);
-        			securitySprite.setSize(30, 30);
-					EntityManager.add(new CampusSecurity(sprite, 10));
-				}
+
+				GameScreen.eventTriggered("Negative");
+
+				createSecurityGoose(330, 180);
+				createSecurityGoose(350, 740);
+				createSecurityGoose(1175, 490);
+				createSecurityGoose(1250, 1030);
+
+				createSecurityOverride(100, 500);
+
+				isExpired = true;
 
 				conversationReset = false;
 			}
 		}
 		
 		return true;
+	}
+
+	private void createSecurityGoose(int x, int y) {
+		TextureAtlas atlas = new TextureAtlas("atlas/security_geese.atlas");
+        Sprite securitySprite = new Sprite(atlas.findRegion("walking"));
+    	securitySprite.setSize(30, 30);
+		securitySprite.setPosition(x, y);
+		EntityManager.add(new CampusSecurity(securitySprite, 50));
+	}
+
+	private void createSecurityOverride(int x, int y) {
+		Texture texture = new Texture("SecurityOverride.png");
+        Sprite securityOverrideSprite = new Sprite(texture);
+    	securityOverrideSprite.setSize(30, 30);
+		securityOverrideSprite.setPosition(x, y);
+		EntityManager.add(new SecurityOveride(securityOverrideSprite));
+	}
+
+	private void createTripWire(int x, int y) {
+		Texture texture = new Texture("tripwire.png");
+        Sprite tripwireSprite = new Sprite(texture);
+    	tripwireSprite.setSize(30, 30);
+		tripwireSprite.setPosition(x, y);
+		EntityManager.add(new TripWire(tripwireSprite));
 	}
 	
 	/**
@@ -140,7 +162,7 @@ public class EvilBob extends InteractableEntity {
 			textBubbleVisible = textBubble.hideShow();
 		}
 		
-		return true;
+		return false;
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package com.team3._8.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -23,11 +24,20 @@ public class HUD {
     
     private final Batch HUDbatch;
     private final Texture keycard;
+    private final Texture securityOverride;
+    private final Texture goldenIdol;
     private final Texture pause;
+
+    private static int score = 0;
+
+    private static float achievmentTimer;
+    private static String achievementText; 
     
     public HUD(Batch HUDbatch) {
         this.HUDbatch = HUDbatch;
         this.keycard = new Texture("keycard.png");
+        this.securityOverride = new Texture("SecurityOverride.png");
+        this.goldenIdol = new Texture("goldenIdol.png");
         this.pause = new Texture("libgdx.png");
     }
     
@@ -41,7 +51,7 @@ public class HUD {
     * @param isPaused boolean: Whether to draw paused HUD
     * @param viewport Viewport: Used to get the windows size for arranging text
     */
-    public void draw( BitmapFont font, String timer, Map<String, Integer> events, Bob bob, boolean isPaused, Viewport viewport) {
+    public void draw(BitmapFont font, String timer, Map<String, Integer> events, Bob bob, boolean isPaused, Viewport viewport) {
         
         // Gets screen size to arrange text
         float windowX = viewport.getScreenX();
@@ -78,6 +88,14 @@ public class HUD {
             font.draw(this.HUDbatch, text, windowX + x, windowY + y);
             y -= font.getLineHeight();
         }
+
+        if (achievmentTimer > 0f) {
+            GlyphLayout achievmentsGlyphLayout = new GlyphLayout(font, achievementText);
+            float textX = viewport.getWorldWidth();
+            float textY = 50;
+            font.draw(this.HUDbatch, achievmentsGlyphLayout, textX, textY);
+            achievmentTimer -= Gdx.graphics.getDeltaTime();
+        }
         
         // Restores settings & draws textures
         this.HUDbatch.setProjectionMatrix(previous);
@@ -99,11 +117,23 @@ public class HUD {
         for (String item : bobInventory) {
             switch (item) { // Switch for extendability
                 case "Keycard":
-                this.HUDbatch.draw(this.keycard, 10, 325, 50, 50);
-                if (isPaused) {
-                    font.draw(this.HUDbatch, "This keycard can be used to unlock something...", 10, 325);
-                }
-                break;
+                    this.HUDbatch.draw(this.keycard, 10, 325, 50, 50);
+                    if (isPaused) {
+                        font.draw(this.HUDbatch, "Now all doors are open.", 10, 325);
+                    }
+                    break;
+                case "SecurityOverride":
+                    this.HUDbatch.draw(this.securityOverride, 10, 400, 50, 50);
+                    if (isPaused) {
+                        font.draw(this.HUDbatch, "Now security won't try to get you.", 10, 400);
+                    }
+                    break;
+                case "GoldenIdol":
+                    this.HUDbatch.draw(this.goldenIdol, 10, 250, 50, 50);
+                    if (isPaused) {
+                        font.draw(this.HUDbatch, "You are immortal", 10, 250);
+                    }
+                    break;
                 default:
             }
         }
@@ -121,5 +151,11 @@ public class HUD {
         this.HUDbatch.draw(
             this.pause, (float) viewport.getScreenX() / 2, (float) viewport.getScreenY() / 2, 100, 100);
             this.HUDbatch.end();
+    }
+
+    public static void addAchievement(String text, int score){
+        achievementText = text;
+        achievmentTimer = 5;
+        score += score;
     }
 }

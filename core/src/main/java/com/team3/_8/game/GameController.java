@@ -3,6 +3,8 @@ package com.team3._8.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.team3._8.game.entities.Bob;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +54,9 @@ public final class GameController {
         // Pause
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             paused = !paused;
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+            System.out.println(Bob.bob.getX()+","+Bob.bob.getY());
         }
         
         return paused;

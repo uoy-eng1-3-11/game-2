@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.team3._8.game.Maze;
 
@@ -32,7 +33,9 @@ public final class Bob extends CollidableEntity {
     // Holds the name of the animation linked to the animation
     private Map<String, Animation<TextureRegion>> bob_animations;
     private String animationOverride = "";
-    private boolean reset = false;
+    private boolean hasReset = false;
+    private boolean slipping = false;
+    private Vector2 slipDirection = Vector2.Zero;
     
     public Bob(Sprite sprite, float speed) {
         super(sprite, speed);
@@ -105,6 +108,24 @@ public final class Bob extends CollidableEntity {
         stateTime += Gdx.graphics.getDeltaTime();
         // Default animation if no movement
         TextureRegion current_animation = bob_animations.get("Front").getKeyFrame(stateTime, true);
+
+        if (slipping) {
+            this.sprite.translate(this.speed * delta * slipDirection.x, this.speed * delta * slipDirection.y);
+            if (slipDirection.x == 1 && movement_halter[0]) {
+                slipping = false;
+            } else if (slipDirection.x == -1 && movement_halter[2]) {
+                slipping = false;
+            }
+
+            if (slipDirection.y == 1 && movement_halter[3]) {
+                slipping = false;
+            } else if (slipDirection.y == -1 && movement_halter[1]) {
+                slipping = false;
+            }
+            return;
+        }
+
+        slipDirection = new Vector2(0,0);
         
         // X-axis
         if (((Gdx.input.isKeyPressed(Input.Keys.RIGHT)) || (Gdx.input.isKeyPressed(Input.Keys.D)))
@@ -116,6 +137,7 @@ public final class Bob extends CollidableEntity {
             } else {
                 current_animation = bob_animations.get("RocketRight").getKeyFrame(stateTime, true);
             }
+            slipDirection.x = 1;
         } else if (((Gdx.input.isKeyPressed(Input.Keys.LEFT)) || (Gdx.input.isKeyPressed(Input.Keys.A)))
             && !movement_halter[2]) {
             this.sprite.translateX(-speed * delta);
@@ -125,6 +147,8 @@ public final class Bob extends CollidableEntity {
             } else {
                 current_animation = bob_animations.get("RocketLeft").getKeyFrame(stateTime, true);
             }
+            
+            slipDirection.x = -1;
         }
         
         // Y-axis
@@ -137,6 +161,7 @@ public final class Bob extends CollidableEntity {
             } else {
                 current_animation = bob_animations.get("RocketUp").getKeyFrame(stateTime, true);
             }
+            slipDirection.y = 1;
         } else if (((Gdx.input.isKeyPressed(Input.Keys.DOWN)) || (Gdx.input.isKeyPressed(Input.Keys.S)))
             && !movement_halter[1]) {
             this.sprite.translateY(-speed * delta);
@@ -146,6 +171,7 @@ public final class Bob extends CollidableEntity {
             } else {
                 current_animation = bob_animations.get("RocketDown").getKeyFrame(stateTime, true);
             }
+            slipDirection.y = -1;
         }
         
         sprite.setRegion(current_animation);
@@ -189,6 +215,18 @@ public final class Bob extends CollidableEntity {
     
     public void setSpeed(Integer speed) {
         this.speed = speed;
+    }
+
+    public void reset() {
+        this.hasReset = true;
+    }
+
+    public boolean hasReset() {
+        return hasReset;
+    }
+
+    public void setSlipping(boolean value) {
+        slipping = value;
     }
     
     private Array<TextureRegion> flipFrames(

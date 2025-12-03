@@ -2,7 +2,6 @@ package com.team3._8.game.Screens;
 
 import java.util.Map;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -17,8 +16,11 @@ import com.team3._8.game.HUD;
 import com.team3._8.game.Maze;
 import com.team3._8.game.MazeGame;
 import com.team3._8.game.entities.Bob;
+import com.team3._8.game.entities.CheckinCode;
 import com.team3._8.game.entities.EvilBob;
+import com.team3._8.game.entities.GoldenIdol;
 import com.team3._8.game.entities.Keycard;
+import com.team3._8.game.entities.SlippyWater;
 
 public class GameScreen implements Screen {
     final MazeGame GAME;
@@ -44,11 +46,13 @@ public class GameScreen implements Screen {
 
         float width = Gdx.graphics.getWidth();
         float height = Gdx.graphics.getHeight();
-        System.out.println(width+","+height);
 
         hud = new HUD(new SpriteBatch());
         createLayers();
         createBob();
+        createSlippyWater();
+        createCheckin();
+        createGoldenIdol();
         createEvilBob();
         createKeycard();
         createCamera(width, height);
@@ -65,15 +69,39 @@ public class GameScreen implements Screen {
         
     }
 
+    private void createSlippyWater() {
+        Texture texture = new Texture("slippyWater.png");
+        Sprite waterSprite = new Sprite(texture);
+        waterSprite.setPosition(350, 530);
+        waterSprite.setSize(BOB_WIDTH, BOB_HEIGHT);
+        EntityManager.add(new SlippyWater(waterSprite)); 
+    }
+
+    private void createCheckin() {
+        Texture texture = new Texture("hidden.png");
+        Sprite checkinSprite = new Sprite(texture);
+        checkinSprite.setPosition(360, 219);
+        checkinSprite.setSize(BOB_WIDTH, BOB_HEIGHT);
+        EntityManager.add(new CheckinCode(checkinSprite)); 
+    }
+
+    private void createGoldenIdol() {
+        Texture texture = new Texture("hidden.png");
+        Sprite goldenSprite = new Sprite(texture);
+        goldenSprite.setPosition(1230, 1160);
+        goldenSprite.setSize(BOB_WIDTH, BOB_HEIGHT);
+        EntityManager.add(new GoldenIdol(goldenSprite)); 
+    }
+
     private void createLayers() {
         String[] collidable_layers = {"Collision", "Doors"};
         maze = new Maze("Map/CSE_map.tmx", collidable_layers, "WinDoors", "EventTrigger");
     }
 
-    private void createEvilBob() {
+    static public void createEvilBob() {
         TextureAtlas atlas = new TextureAtlas("atlas/bob.atlas");
         Sprite evilBobSprite = new Sprite(atlas.findRegion("evil-bob"));
-        evilBobSprite.setPosition(500, 500);
+        evilBobSprite.setPosition(1000, 1050);
         evilBobSprite.setSize(BOB_WIDTH*2, BOB_HEIGHT*2);
         EntityManager.add(new EvilBob(evilBobSprite, 0));
     }
@@ -87,7 +115,7 @@ public class GameScreen implements Screen {
     }
     
     private void createCamera(float w, float h) {
-        camera = new OrthographicCamera(w,h);
+        camera = new OrthographicCamera(w/2,h/2);
         camera.position.set(
             Bob.bob.getOriginX(),
             Bob.bob.getOriginY(),
@@ -123,6 +151,9 @@ public class GameScreen implements Screen {
         }
         
         
+        if (eventTracker.get("Negative") == 5) {
+            HUD.addAchievement("Black Bob cat: you ARE unlucky", 500);
+        }
         if (maze.HitsWinLayer(Bob.bob)) {
             GAME.setScreen(new WinScreen(GAME));
         }
@@ -144,58 +175,6 @@ public class GameScreen implements Screen {
         eventTracker.put(eventName, eventTracker.get(eventName) + 1);
     }
 
-    /// Handles the interactions for interactable entities
-    //private void handleInteraction() {
-        // Creates campus security if the flag has been set to true
-       // if (evilBobReturnData.containsKey("Create Campus Security")) {
-       //     if (evilBobReturnData.get("Create Campus Security") && !campusSecurityCreated) {
-       //         eventTriggered("Hidden");
-       //         for (int i = 0; i < allCampusSecuritySprites.length; i++) {
-       //             allCampusSecuritySprites[i] =
-       //             createSprite(
-       //                 "atlas/security_geese.atlas",
-       //                 "walking",
-       //                 500,
-       //                 500,
-       //                 2 * BOB_WIDTH,
-       //                 2 * BOB_HEIGHT,
-       //                 10,
-       //                 CampusSecurity::new);
-       //         }
-       //         campusSecurityCreated = true;
-       //     }
-       // }
-       //     
-       // // Sets rocketBob if the command has been set to true
-       // if (evilBobReturnData.containsKey("Enable Rocket Bob")) {
-       //     if (evilBobReturnData.get("Enable Rocket Bob")) {
-       //         bob.setAnimation("Rocket");
-       //         bob.setSpeed(150);
-       //     }
-       // }
-       // 
-       // // Removes the keycard if the command has been set to true
-       // if (evilBobReturnData.containsKey("Remove Keycard")) {
-       //     if (evilBobReturnData.get("Remove Keycard")) {
-       //         if (bob.removeInventory("Keycard")) {
-       //             eventTriggered("Hidden");
-       //         }
-       //     }
-       // }
-       // 
-       // // Checks for collision with CampusSecurity & resets player to start if so
-       // if (campusSecurityCreated) {
-       //     for (CampusSecurity sec : allCampusSecuritySprites) {
-       //         campusSecurityReturnData = sec.collision(bob);
-       //         if (campusSecurityReturnData.containsKey("Reset Player Position")) {
-       //             if (campusSecurityReturnData.get("Reset Player Position")) {
-       //                 bobSprite.setPosition(100, 500);
-       //             }
-       //         }
-       //     }
-       // }
-    //}
-
     public void draw(SpriteBatch batch) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
 
@@ -213,23 +192,6 @@ public class GameScreen implements Screen {
         
         GAME.batch.begin();
         EntityManager.draw(batch);
-
-        //evilBob.draw(batch, 1000, 1050);
-        //bob.draw(batch);
-        //keycard.draw(batch);
-        //
-        //if (campusSecurityCreated) {
-        //    int mod = 0;
-        //    for (int i = 0; i < 5; i++) {
-        //        allCampusSecuritySprites[i].draw(
-        //            batch,
-        //            870 + mod,
-        //            1150,
-        //            maze.hitsWall(allCampusSecuritySprites[i], Gdx.graphics.getDeltaTime()));
-        //        mod += 35;
-        //    }
-        //}
-        
             
         batch.end();
             
@@ -251,7 +213,9 @@ public class GameScreen implements Screen {
     @Override
     public void hide() {}
     @Override
-    public void dispose() {}
+    public void dispose() {
+        EntityManager.dispose();
+    }
     @Override
     public void resize(int width, int height) {}
 }
