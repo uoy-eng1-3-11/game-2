@@ -56,7 +56,7 @@ public class LoseScreen implements Screen {
     }
 
     private void input() {
-        if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+        if (Gdx.input.isKeyJustPressed(Keys.SPACE)) { 
             GAME.setScreen(new GameScreen(GAME));
         }
     }
@@ -68,9 +68,12 @@ public class LoseScreen implements Screen {
         bobSprite.setRegion(bobSquashAnimation.getKeyFrame(stateTime));
         
         GAME.viewport.apply();
+        batch.setProjectionMatrix(GAME.viewport.getCamera().combined);
         batch.begin();
 
         bobSprite.draw(batch);
+
+        System.out.println();
 
         // Draws centered text
         GAME.font.draw(batch, TOP_TEXT, layoutValues.get("x1"), layoutValues.get("y1"));

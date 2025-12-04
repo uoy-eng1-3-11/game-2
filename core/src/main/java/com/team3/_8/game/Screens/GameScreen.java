@@ -138,6 +138,9 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         update(delta);
         draw(GAME.batch);
+        if (GAME.getScreen() != this) {
+            dispose();
+        }
     }
 
     private void update(float delta) {
@@ -180,7 +183,7 @@ public class GameScreen implements Screen {
             eventTriggered("Negative");
         }
         // The code to check if the game has ended
-        if (timer >= 300) {
+        if (timer >= 10) {
             GAME.setScreen(new LoseScreen(GAME));
         }
     }
@@ -198,11 +201,13 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
 
         // Centres the camera on Bob and then updates it
-        camera.position.set(
-            Bob.bob.getOriginX(),
-            Bob.bob.getOriginY(),
-            0);
-        camera.update();
+        if (Bob.bob != null) {
+            camera.position.set(
+                Bob.bob.getOriginX(),
+                Bob.bob.getOriginY(),
+                0);
+            camera.update();
+        }
 
         batch.setProjectionMatrix(camera.combined);
         
@@ -236,5 +241,9 @@ public class GameScreen implements Screen {
         EntityManager.dispose();
     }
     @Override
-    public void resize(int width, int height) {}
+    public void resize(int width, int height) {
+        GAME.viewport.setScreenWidth(width);
+        GAME.viewport.setScreenHeight(height);
+        createCamera(width, height);
+    }
 }

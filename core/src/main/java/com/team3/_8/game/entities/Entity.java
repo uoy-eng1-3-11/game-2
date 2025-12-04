@@ -66,4 +66,8 @@ public abstract class Entity {
     public boolean isExpired() {
         return isExpired;
     }
+
+    public void expire() {
+        isExpired = true;
+    }
 }

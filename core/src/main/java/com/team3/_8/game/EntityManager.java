@@ -79,7 +79,9 @@ public final class EntityManager {
 
     public static void dispose() {
         for (Entity entity : entities) {
+            entity.expire(); 
             entity.dispose();
         }
+        Bob.bob = null;
     }
 }
