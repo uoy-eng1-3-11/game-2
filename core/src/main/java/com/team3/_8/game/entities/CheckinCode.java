@@ -20,7 +20,7 @@ public class CheckinCode extends InteractableEntity {
     public boolean startInteraction() {
         if (Gdx.input.isKeyJustPressed(Keys.E)) {
             GameScreen.eventTriggered("Hidden");
-            HUD.addAchievement("Checked out: so we leave now, right", 500);
+            HUD.addAchievement(4, 500);
             Bob.bob.setPosition(1550, 730);
             isExpired = true;
         }

@@ -91,7 +91,7 @@ public class EvilBob extends InteractableEntity {
 				textBubble.setText("Get out of here!");
 				
 				GameScreen.eventTriggered("Positive");
-				HUD.addAchievement("Rocket Power: now fly", 250);
+				HUD.addAchievement(2, 250);
 				
                 Bob.bob.setAnimation("Rocket");
                 Bob.bob.setSpeed(150);
@@ -110,7 +110,7 @@ public class EvilBob extends InteractableEntity {
 				createSecurityGoose(1175, 490);
 				createSecurityGoose(1250, 1030);
 
-				createSecurityOverride(100, 500);
+				createSecurityOverride(1410, 490);
 
 				isExpired = true;
 

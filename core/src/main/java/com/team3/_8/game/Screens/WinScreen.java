@@ -14,17 +14,23 @@ public class WinScreen implements Screen {
     final MazeGame GAME;
 
     private static final String TOP_TEXT = "Well done!!";
-    private static final String BOTTOM_TEXT = "You won the game";
+    private static final String CENTER_TEXT = "You won the game";
+    private final String BOTTOM_TEXT;
 
     Map<String, Float> layoutValues;
 
-    public WinScreen(MazeGame game) {
+    public WinScreen(MazeGame game, int score, int timer) {
         GAME = game;
+
+        int totalScore = score+(300-timer)*10;
+
+        BOTTOM_TEXT = "score: "+totalScore;
         
         // Prepare text layouts for measurement
         GlyphLayout topLayout = new GlyphLayout(GAME.font, TOP_TEXT);
+        GlyphLayout centerLayout = new GlyphLayout(GAME.font, CENTER_TEXT);
         GlyphLayout bottomLayout = new GlyphLayout(GAME.font, BOTTOM_TEXT);
-        GlyphLayout[] textLayout = {topLayout, bottomLayout};
+        GlyphLayout[] textLayout = {topLayout, centerLayout, bottomLayout};
         layoutValues = Utils.positionText(GAME.viewport, textLayout);
     }
 
@@ -42,7 +48,8 @@ public class WinScreen implements Screen {
         
         // Draws centered text
         GAME.font.draw(batch, TOP_TEXT, layoutValues.get("x1"), layoutValues.get("y1"));
-        GAME.font.draw(batch, BOTTOM_TEXT, layoutValues.get("x2"), layoutValues.get("y2"));
+        GAME.font.draw(batch, CENTER_TEXT, layoutValues.get("x2"), layoutValues.get("y2"));
+        GAME.font.draw(batch, BOTTOM_TEXT, layoutValues.get("x3"), layoutValues.get("y3"));
         batch.end();
     }
 

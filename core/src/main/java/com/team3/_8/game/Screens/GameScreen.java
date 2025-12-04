@@ -21,6 +21,7 @@ import com.team3._8.game.entities.EvilBob;
 import com.team3._8.game.entities.GoldenIdol;
 import com.team3._8.game.entities.Keycard;
 import com.team3._8.game.entities.SlippyWater;
+import com.team3._8.game.entities.WarpPanel;
 
 public class GameScreen implements Screen {
     final MazeGame GAME;
@@ -53,6 +54,7 @@ public class GameScreen implements Screen {
         createSlippyWater();
         createCheckin();
         createGoldenIdol();
+        createWarpPanel();
         createEvilBob();
         createKeycard();
         createCamera(width, height);
@@ -91,6 +93,14 @@ public class GameScreen implements Screen {
         goldenSprite.setPosition(1230, 1160);
         goldenSprite.setSize(BOB_WIDTH, BOB_HEIGHT);
         EntityManager.add(new GoldenIdol(goldenSprite)); 
+    }
+
+    private void createWarpPanel() {
+        Texture texture = new Texture("hidden.png");
+        Sprite warpPanelSprite = new Sprite(texture);
+        warpPanelSprite.setPosition(910, 345);
+        warpPanelSprite.setSize(BOB_WIDTH, BOB_HEIGHT);
+        EntityManager.add(new WarpPanel(warpPanelSprite));
     }
 
     private void createLayers() {
@@ -151,11 +161,20 @@ public class GameScreen implements Screen {
         }
         
         
-        if (eventTracker.get("Negative") == 5) {
-            HUD.addAchievement("Black Bob cat: you ARE unlucky", 500);
+        if (eventTracker.get("Negative") == 5 && HUD.achievments[3] == false) {
+            HUD.addAchievement(3, 500);
+        }
+        int achievmentCount = 0;
+        for (boolean get : HUD.achievments) {
+            if (get) {
+                achievmentCount++;
+            }
+        }
+        if (achievmentCount == 7){
+            HUD.addAchievement(7, 1500);
         }
         if (maze.HitsWinLayer(Bob.bob)) {
-            GAME.setScreen(new WinScreen(GAME));
+            GAME.setScreen(new WinScreen(GAME, HUD.score, (int) timer));
         }
         if (maze.HitsEventLayer(Bob.bob)) {
             eventTriggered("Negative");

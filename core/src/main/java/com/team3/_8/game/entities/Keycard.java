@@ -15,7 +15,7 @@ public class Keycard extends CollectableEntity{
     public boolean collected(Bob bob) {
         if (super.collected(bob)) {
             GameScreen.eventTriggered("Positive");
-            HUD.addAchievement("The key to the kingdom: unlimited access", 100);
+            HUD.addAchievement(0, 100);
             Maze.removeCollisionLayer("Doors");
             Maze.removeVisibleLayer("ClosedDoors");
             isExpired = true;

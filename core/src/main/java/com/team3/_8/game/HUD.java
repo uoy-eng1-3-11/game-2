@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team3._8.game.entities.Bob;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,10 +29,21 @@ public class HUD {
     private final Texture goldenIdol;
     private final Texture pause;
 
-    private static int score = 0;
+    public static int score = 0;
 
+    public static boolean[] achievments = {false,false,false,false,false,false,false,false};
     private static float achievmentTimer;
-    private static String achievementText; 
+    private static ArrayList<Integer> achievementNumber;
+    private String[] achievementText = {
+        "The key to the kingdom: unlimited access",
+        "Master of security: your pulling the strings",
+        "Rocket Power: now fly",
+        "Black Bob cat: you ARE unlucky",
+        "Checked out: so we leave now, right",
+        "Decked out: we gangsta now",
+        "Spaced out: beam me up, scotty",
+        "Completionist: but couldn't get a life"
+    };
     
     public HUD(Batch HUDbatch) {
         this.HUDbatch = HUDbatch;
@@ -39,6 +51,7 @@ public class HUD {
         this.securityOverride = new Texture("SecurityOverride.png");
         this.goldenIdol = new Texture("goldenIdol.png");
         this.pause = new Texture("libgdx.png");
+        achievementNumber = new ArrayList<Integer>();
     }
     
     /**
@@ -71,7 +84,8 @@ public class HUD {
             timer,
             "Positive: " + events.get("Positive"),
             "Negative: " + events.get("Negative"),
-            "Hidden: " + events.get("Hidden")
+            "Hidden: " + events.get("Hidden"),
+            "Score:" + score
         };
         float y = windowHeight - 10f - font.getCapHeight();
         // Sets text scale based on window width
@@ -90,11 +104,16 @@ public class HUD {
         }
 
         if (achievmentTimer > 0f) {
-            GlyphLayout achievmentsGlyphLayout = new GlyphLayout(font, achievementText);
-            float textX = viewport.getWorldWidth();
+            GlyphLayout achievmentsGlyphLayout = new GlyphLayout(font, achievementText[achievementNumber.get(0)]);
+            float textX = viewport.getWorldWidth() - achievmentsGlyphLayout.width/2f;
             float textY = 50;
             font.draw(this.HUDbatch, achievmentsGlyphLayout, textX, textY);
             achievmentTimer -= Gdx.graphics.getDeltaTime();
+        } else if (!achievementNumber.isEmpty()) {
+            achievementNumber.remove(0);
+            if (!achievementNumber.isEmpty()) {
+                achievmentTimer = 5;
+            }
         }
         
         // Restores settings & draws textures
@@ -153,9 +172,10 @@ public class HUD {
             this.HUDbatch.end();
     }
 
-    public static void addAchievement(String text, int score){
-        achievementText = text;
+    public static void addAchievement(int achievementNum, int scoreWorth){
+        achievementNumber.add(achievementNum);
+        achievments[achievementNum] = true;
         achievmentTimer = 5;
-        score += score;
+        score += scoreWorth;
     }
 }

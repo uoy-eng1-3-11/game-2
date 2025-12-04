@@ -48,11 +48,12 @@ public class CampusSecurity extends InteractableEntity {
     public boolean startInteraction() {
         // Sets command to MazeGame.java to reset
         // player position on collision with this sprite
-        if (Bob.bob.hasItem("GoldenIdol")) {
+        if (!Bob.bob.hasItem("GoldenIdol")) {
             Bob.bob.setPosition(100, 500);
         }
         if (!Bob.bob.hasReset()) {
             GameScreen.eventTriggered("Negative");
+            Bob.bob.reset();
         }
         return true;
     }

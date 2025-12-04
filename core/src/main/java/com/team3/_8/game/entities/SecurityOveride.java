@@ -15,7 +15,7 @@ public class SecurityOveride extends CollectableEntity{
     public boolean collected(Bob bob) {
         if (super.collected(bob)) {
             GameScreen.eventTriggered("Positive");
-            HUD.addAchievement("Master of security: with this, you are secure", 300);
+            HUD.addAchievement(1, 300);
             GameScreen.createEvilBob();
             for (Entity entity : EntityManager.entities) {
                 if (entity instanceof CampusSecurity) {

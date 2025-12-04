@@ -21,8 +21,6 @@ public class TitleScreen implements Screen {
 
     public TitleScreen(MazeGame game) {
         GAME = game;
-
-        
     }
 
     @Override

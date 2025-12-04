@@ -15,7 +15,7 @@ public class GoldenIdol extends InteractableEntity {
     public boolean startInteraction() {
         if (Gdx.input.isKeyJustPressed(Keys.E)) {
             GameScreen.eventTriggered("Hidden");
-            HUD.addAchievement("Decked out: we gangsta now", 500);
+            HUD.addAchievement(5, 500);
             Bob.bob.addInventory("GoldenIdol");
             isExpired = true;
             return true;

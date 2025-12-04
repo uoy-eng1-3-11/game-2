@@ -11,7 +11,7 @@ public class TripWire extends InteractableEntity {
 
     public boolean startInteraction() {
         GameScreen.eventTriggered("Negative");
-        if (Bob.bob.hasItem("GoldenIdol")) {
+        if (!Bob.bob.hasItem("GoldenIdol")) {
             Bob.bob.setAnimation("");
             Bob.bob.setSpeed(50);
         }
