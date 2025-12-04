@@ -1,9 +1,10 @@
-package com.team3._8.game.headless;
+package com.team3._8.game.headless.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.team3._8.game.entities.Bob;
 import com.team3._8.game.entities.CollectableEntity;
+import com.team3._8.game.headless.AbstractHeadlessGdxTest;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
