@@ -138,7 +138,7 @@ public class EvilBob extends InteractableEntity {
 	}
 
 	private void createTripWire(int x, int y) {
-		Texture texture = new Texture("tripwire.png");
+		Texture texture = new Texture("tripWire.png");
         Sprite tripwireSprite = new Sprite(texture);
     	tripwireSprite.setSize(30, 30);
 		tripwireSprite.setPosition(x, y);
