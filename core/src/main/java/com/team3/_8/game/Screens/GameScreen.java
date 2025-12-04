@@ -67,7 +67,7 @@ public class GameScreen implements Screen {
         Sprite bobSprite = new Sprite(atlas.findRegion("front-bob"));
         bobSprite.setPosition(100, 500);
         bobSprite.setSize(BOB_WIDTH, BOB_HEIGHT);
-        EntityManager.add(new Bob(bobSprite, 200, -3));
+        EntityManager.add(new Bob(bobSprite, 50, -3));
         
     }
 
