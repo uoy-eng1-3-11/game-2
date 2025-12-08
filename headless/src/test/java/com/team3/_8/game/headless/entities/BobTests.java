@@ -13,23 +13,15 @@ class BobTests extends AbstractHeadlessGdxTest {
     @Test
     public void onlyOneBobWithFirstConstructor() {
         Sprite sprite = mock(Sprite.class);
-
         new Bob(sprite, 0.0f);
-
-        assertThrows(RuntimeException.class, () -> {
-            new Bob(sprite, 0.0f);
-        });
+        assertThrows(RuntimeException.class, () -> new Bob(sprite, 0.0f));
     }
 
     @Test
     public void onlyOneBobWithSecondConstructor() {
         Sprite sprite = mock(Sprite.class);
-
         new Bob(sprite, 0.0f, 0.0f);
-
-        assertThrows(RuntimeException.class, () -> {
-            new Bob(sprite, 0.0f, 0.0f);
-        });
+        assertThrows(RuntimeException.class, () -> new Bob(sprite, 0.0f, 0.0f));
     }
 }
 
