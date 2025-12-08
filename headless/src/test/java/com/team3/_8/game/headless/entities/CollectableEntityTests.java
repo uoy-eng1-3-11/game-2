@@ -1,13 +1,14 @@
 package com.team3._8.game.headless.entities;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.team3._8.game.entities.Bob;
 import com.team3._8.game.entities.CollectableEntity;
 import com.team3._8.game.headless.AbstractHeadlessGdxTest;
+
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class CollectableEntityTests extends AbstractHeadlessGdxTest {
     class TestEntity extends CollectableEntity {
@@ -18,8 +19,7 @@ class CollectableEntityTests extends AbstractHeadlessGdxTest {
 
     @Test
     public void collectedWhenOverlapping() {
-        Texture texture = new Texture("keycard.png");
-        Sprite sprite = new Sprite(texture);
+        Sprite sprite = mock(Sprite.class);
 
         Bob bob = new Bob(sprite, 0.0f);
         bob.getCollisionBox().x = 0.0f;
@@ -45,8 +45,7 @@ class CollectableEntityTests extends AbstractHeadlessGdxTest {
 
     @Test
     public void notCollectedWhenNotOverlapping() {
-        Texture texture = new Texture("keycard.png");
-        Sprite sprite = new Sprite(texture);
+        Sprite sprite = mock(Sprite.class);
 
         Bob bob = new Bob(sprite, 0.0f);
         bob.getCollisionBox().x = 0.0f;

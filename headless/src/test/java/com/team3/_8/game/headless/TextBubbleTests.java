@@ -1,22 +1,25 @@
 package com.team3._8.game.headless.entities;
 
+import com.team3._8.game.TextBubble;
+import com.team3._8.game.headless.AbstractHeadlessGdxTest;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.team3._8.game.TextBubble;
-import com.team3._8.game.headless.AbstractHeadlessGdxTest;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class TextBubbleTests extends AbstractHeadlessGdxTest {
     @Test
     public void hideShow() {
-        Texture texture = new Texture("keycard.png");
-        BitmapFont font = new BitmapFont();
-        TextBubble bubble = new TextBubble(texture, font, 5, 5);
+        TextBubble bubble = new TextBubble(
+            mock(Texture.class),
+            mock(BitmapFont.class),
+            5, 5
+        );
 
         // Should alternate, being hidden by default.
         assertTrue(bubble.hideShow());
@@ -27,7 +30,7 @@ class TextBubbleTests extends AbstractHeadlessGdxTest {
 
     @Test
     public void notDrawnByDefault() {
-        Texture texture = new Texture("keycard.png");
+        Texture texture = mock(Texture.class);
         BitmapFont font = mock(BitmapFont.class);
         SpriteBatch batch = mock(SpriteBatch.class);
         TextBubble bubble = new TextBubble(texture, font, 5, 7);
@@ -45,7 +48,7 @@ class TextBubbleTests extends AbstractHeadlessGdxTest {
 
     @Test
     public void drawnWhenVisible() {
-        Texture texture = new Texture("keycard.png");
+        Texture texture = mock(Texture.class);
         BitmapFont font = mock(BitmapFont.class);
         SpriteBatch batch = mock(SpriteBatch.class);
         TextBubble bubble = new TextBubble(texture, font, 5, 5);

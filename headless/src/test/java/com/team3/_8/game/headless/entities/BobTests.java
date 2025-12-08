@@ -1,17 +1,18 @@
 package com.team3._8.game.headless.entities;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.team3._8.game.entities.Bob;
 import com.team3._8.game.headless.AbstractHeadlessGdxTest;
+
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class BobTests extends AbstractHeadlessGdxTest {
     @Test
     public void onlyOneBobWithFirstConstructor() {
-        Texture texture = new Texture("keycard.png");
-        Sprite sprite = new Sprite(texture);
+        Sprite sprite = mock(Sprite.class);
 
         new Bob(sprite, 0.0f);
 
@@ -22,8 +23,7 @@ class BobTests extends AbstractHeadlessGdxTest {
 
     @Test
     public void onlyOneBobWithSecondConstructor() {
-        Texture texture = new Texture("keycard.png");
-        Sprite sprite = new Sprite(texture);
+        Sprite sprite = mock(Sprite.class);
 
         new Bob(sprite, 0.0f, 0.0f);
 

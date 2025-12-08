@@ -1,13 +1,14 @@
 package com.team3._8.game.headless.entities;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.team3._8.game.entities.CollidableEntity;
 import com.team3._8.game.headless.AbstractHeadlessGdxTest;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class CollidableEntityTests extends AbstractHeadlessGdxTest {
     class TestEntity extends CollidableEntity {
@@ -29,8 +30,8 @@ class CollidableEntityTests extends AbstractHeadlessGdxTest {
 
     @Test
     public void constructsWithSizeChange() {
-        Texture texture = new Texture("keycard.png");
-        Sprite sprite = new Sprite(texture);
+        Sprite sprite = mock(Sprite.class);
+
         TestEntity entity_1 = new TestEntity(sprite, 0.0f);
         TestEntity entity_2 = new TestEntity(sprite, 0.0f, 0.21f);
 
@@ -54,8 +55,9 @@ class CollidableEntityTests extends AbstractHeadlessGdxTest {
 
     @Test
     public void disposeMinimisesCollisionBox() {
-        Texture texture = new Texture("keycard.png");
-        Sprite sprite = new Sprite(texture);
+        Sprite sprite = mock(Sprite.class);
+        when(sprite.getTexture()).thenReturn(mock(Texture.class));
+
         TestEntity entity = new TestEntity(sprite, 0.0f);
 
         entity.dispose();
@@ -66,7 +68,7 @@ class CollidableEntityTests extends AbstractHeadlessGdxTest {
 
     @Test
     public void isColliding() {
-        Texture texture = new Texture("sprites/sprite_images/evil-bob_1.png");
+        Texture texture = new Texture("keycard.png");
         Sprite sprite = new Sprite(texture);
 
         TestEntity a = new TestEntity(sprite, 0.0f);
@@ -86,7 +88,7 @@ class CollidableEntityTests extends AbstractHeadlessGdxTest {
 
     @Test
     public void isNotColliding() {
-        Texture texture = new Texture("sprites/sprite_images/evil-bob_1.png");
+        Texture texture = new Texture("keycard.png");
         Sprite sprite = new Sprite(texture);
 
         TestEntity a = new TestEntity(sprite, 0.0f);
