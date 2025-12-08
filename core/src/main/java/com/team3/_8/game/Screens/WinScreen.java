@@ -31,14 +31,6 @@ public class WinScreen implements Screen {
         BOTTOM_TEXT = "score: "+totalScore;
 
         leaderboard(totalScore);
-        
-        // Prepare text layouts for measurement
-        GlyphLayout topLayout = new GlyphLayout(GAME.font, TOP_TEXT);
-        GlyphLayout centerLayout = new GlyphLayout(GAME.font, CENTER_TEXT);
-        GlyphLayout bottomLayout = new GlyphLayout(GAME.font, BOTTOM_TEXT);
-        GlyphLayout leaderboardLayout = new GlyphLayout(GAME.font, leaderboardText);
-        GlyphLayout[] textLayout = {topLayout, centerLayout, bottomLayout, leaderboardLayout};
-        layoutValues = Utils.positionText(GAME.viewport, textLayout);
     }
 
     @Override
@@ -50,12 +42,21 @@ public class WinScreen implements Screen {
     }
 
     public void draw(SpriteBatch batch) {
+        if (layoutValues == null) {
+            GlyphLayout topLayout = new GlyphLayout(GAME.font, TOP_TEXT);
+            GlyphLayout centerLayout = new GlyphLayout(GAME.font, CENTER_TEXT);
+            GlyphLayout bottomLayout = new GlyphLayout(GAME.font, BOTTOM_TEXT);
+            GlyphLayout leaderboardLayout = new GlyphLayout(GAME.font, leaderboardText);
+            GlyphLayout[] textLayout = {topLayout, centerLayout, bottomLayout, leaderboardLayout};
+            layoutValues = Utils.positionText(GAME.viewport, textLayout);
+        }
+
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
-        
+
         GAME.viewport.apply();
         batch.setProjectionMatrix(GAME.viewport.getCamera().combined);
         batch.begin();
-        
+
         // Draws centered text
         GAME.font.draw(batch, TOP_TEXT, layoutValues.get("x1"), layoutValues.get("y1"));
         GAME.font.draw(batch, CENTER_TEXT, layoutValues.get("x2"), layoutValues.get("y2"));
@@ -82,7 +83,7 @@ public class WinScreen implements Screen {
             } else {
                 leaderboardText += i + ". " + prefs.getInteger(key) + "\n";
             }
-            
+
             prefs.flush();
         }
     }

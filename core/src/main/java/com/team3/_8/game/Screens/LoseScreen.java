@@ -33,20 +33,6 @@ public class LoseScreen implements Screen {
 
         TextureAtlas atlas = new TextureAtlas("atlas/squash_bob.atlas");
         bobSquashAnimation = new Animation<TextureRegion>(0.1f, atlas.findRegions("squash-bob"), PlayMode.LOOP);
-
-        GlyphLayout topLayout = new GlyphLayout(GAME.font, TOP_TEXT);
-        GlyphLayout centerLayout = new GlyphLayout(GAME.font, CENTER_TEXT);
-        GlyphLayout bottomLayout = new GlyphLayout(GAME.font, BOTTOM_TEXT);
-        GlyphLayout[] textLayout = {topLayout, centerLayout, bottomLayout};
-        layoutValues = Utils.positionText(GAME.viewport, textLayout);
-
-        bobSprite = new Sprite();
-
-        bobSprite.setPosition(
-            GAME.viewport.getWorldWidth() / 2f - 16f,
-            GAME.viewport.getWorldHeight() / 2f + 30f);
-
-        bobSprite.setSize(2 * MazeGame.BOB_WIDTH, 2 * MazeGame.BOB_HEIGHT);
     }
 
     @Override
@@ -56,17 +42,35 @@ public class LoseScreen implements Screen {
     }
 
     private void input() {
-        if (Gdx.input.isKeyJustPressed(Keys.SPACE)) { 
+        if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
             GAME.setScreen(new GameScreen(GAME));
         }
     }
 
     private void draw(SpriteBatch batch) {
+        if (bobSprite == null) {
+            bobSprite = new Sprite();
+
+            bobSprite.setPosition(
+                GAME.viewport.getWorldWidth() / 2f - 16f,
+                GAME.viewport.getWorldHeight() / 2f + 30f);
+
+            bobSprite.setSize(2 * MazeGame.BOB_WIDTH, 2 * MazeGame.BOB_HEIGHT);
+        }
+
+        if (layoutValues == null) {
+            GlyphLayout topLayout = new GlyphLayout(GAME.font, TOP_TEXT);
+            GlyphLayout centerLayout = new GlyphLayout(GAME.font, CENTER_TEXT);
+            GlyphLayout bottomLayout = new GlyphLayout(GAME.font, BOTTOM_TEXT);
+            GlyphLayout[] textLayout = {topLayout, centerLayout, bottomLayout};
+            layoutValues = Utils.positionText(GAME.viewport, textLayout);
+        }
+
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
 
         stateTime += Gdx.graphics.getDeltaTime();
         bobSprite.setRegion(bobSquashAnimation.getKeyFrame(stateTime));
-        
+
         GAME.viewport.apply();
         batch.setProjectionMatrix(GAME.viewport.getCamera().combined);
         batch.begin();
@@ -78,7 +82,7 @@ public class LoseScreen implements Screen {
         // Draws centered text
         GAME.font.draw(batch, TOP_TEXT, layoutValues.get("x1"), layoutValues.get("y1"));
         GAME.font.draw(batch, BOTTOM_TEXT, layoutValues.get("x2"), layoutValues.get("y2"));
-        
+
         batch.end();
     }
 

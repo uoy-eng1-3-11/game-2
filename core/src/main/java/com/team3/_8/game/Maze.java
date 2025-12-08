@@ -19,9 +19,9 @@ import java.util.Set;
  * Class defines a Maze object that renders background map.
  */
 public class Maze {
-    
+
     private static TiledMap map; // the map
-    private final TiledMapRenderer map_render; // the rendere
+    private TiledMapRenderer map_render; // the rendere
     private static Set<MapObjects> collidable_objects; // Map object set of all collidable layers
     private static int[] visible_layers;
     // Index of every map layer, set to its own index if it should be visible.
@@ -30,7 +30,7 @@ public class Maze {
     private final MapObject win_layer;
     private final MapObject event_layer;
     private boolean event_triggered;
-    
+
     /**
     * Maze constructor that defines a map, renderer, visible layers and its collision objects
     *
@@ -43,12 +43,11 @@ public class Maze {
     public Maze(String filename, String[] visible_layer_names, String[] collision_layers, String progress_layer, String event_trigger_layer) {
         map = new TmxMapLoader().load(filename);
         visible_layers = new int[map.getLayers().getCount()];
-        map_render = new OrthogonalTiledMapRenderer(map);
-        
+
         for (String layer : visible_layer_names) {
             this.addVisibleLayer(layer);
         }
-        
+
         collidable_objects = new HashSet<MapObjects>();
         for (String layer : collision_layers) {
             collidable_objects.add((map.getLayers().get(layer)).getObjects());
@@ -57,7 +56,7 @@ public class Maze {
         event_layer = map.getLayers().get(event_trigger_layer).getObjects().get(0);
         event_triggered = false;
     }
-        
+
     /**
     * Maze constructor that defines a map, renderer and collision objects.
     *
@@ -72,17 +71,18 @@ public class Maze {
             visible_layers[index] = index;
         }
     }
-    
+
     /**
     * Renders the map and sets its view to camera, called every frame
     *
     * @param camera the view of the map is set to
     */
     public void renderMap(OrthographicCamera camera) {
+        if (map_render == null) map_render = new OrthogonalTiledMapRenderer(map);
         map_render.setView(camera);
         map_render.render(visible_layers);
     }
-    
+
     /**
     * Detects whether the entity is colliding with a wall of the current map, called whenever moved
     *
@@ -101,16 +101,16 @@ public class Maze {
         // Distance bob moves every time function is called (+allowance for changes to delta)
         // System.out.println(delta);
         float effective_speed = entity.getSpeed() * delta * 3;
-        
+
         for (MapObjects collidable_layer : collidable_objects) {
             for (RectangleMapObject wall : collidable_layer.getByType(RectangleMapObject.class)) {
                 wall_collision = wall.getRectangle();
-                
+
                 // Define different points to measure where entity is in comparison
                 right_wall_X = wall_collision.getX() + wall_collision.getWidth() - effective_speed;
                 left_wall_X = wall_collision.getX() + effective_speed;
                 wall_Y = wall_collision.getY() + effective_speed;
-                
+
                 if (Intersector.overlaps(wall_collision, entity.getCollisionBox())) {
                     // If entity collides with box, which side of the box
                     // Use a whiteboard to visualise
@@ -129,7 +129,7 @@ public class Maze {
         }
         return movement_halter;
     }
-            
+
     /**
     * Method to add a new collision layer to the collidable objects linked list
     *
@@ -138,7 +138,7 @@ public class Maze {
     public void addCollisionLayer(String collision_layer) {
         collidable_objects.add((map.getLayers().get(collision_layer)).getObjects());
     }
-    
+
     /**
     * Method to remove a collision layer from the collidable objects linked list, if it is present
     *
@@ -148,7 +148,7 @@ public class Maze {
     public static boolean removeCollisionLayer(String collision_layer) {
         return collidable_objects.remove((map.getLayers().get(collision_layer)).getObjects());
     }
-    
+
     /**
     * Adds a new layer to be rendered every frame
     *
@@ -164,7 +164,7 @@ public class Maze {
             return true;
         }
     }
-    
+
     /**
     * Removes a layer so that it is no longer rendered
     *
@@ -180,7 +180,7 @@ public class Maze {
             return true;
         }
     }
-    
+
     /**
     * Determines if the win layer has been hit
     *
@@ -191,7 +191,7 @@ public class Maze {
         Rectangle wall_collision = ((RectangleMapObject) win_layer).getRectangle();
         return Intersector.overlaps(wall_collision, player.getCollisionBox());
     }
-    
+
     /**
     * Determines if the event layer has been hit
     *
@@ -209,9 +209,8 @@ public class Maze {
         }
         return false;
     }
-    
+
     public void dispose() {
         map.dispose();
     }
 }
-        

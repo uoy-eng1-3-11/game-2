@@ -16,24 +16,20 @@ import com.team3._8.game.Utils;
 public class TutorialScreen implements Screen {
     final MazeGame GAME;
     private Sprite tutorialSprite;
-    
+
     Map<String, Float> layoutValues;
 
     private final static String TOP_TEXT = "Press ESC to go back";
 
     public TutorialScreen(MazeGame game) {
         GAME = game;
-        
+
         Texture tutorial_texture = new Texture("tutorial.png");
         tutorialSprite = new Sprite(tutorial_texture);
         tutorialSprite.setSize(310, 180);
         tutorialSprite.setPosition(0,0);
-
-        GlyphLayout topLayout = new GlyphLayout(GAME.font, TOP_TEXT);
-        GlyphLayout[] textLayout = {topLayout};
-        layoutValues = Utils.positionText(GAME.viewport, textLayout);
     }
-    
+
     @Override
     public void render(float delta){
         input();
@@ -47,13 +43,19 @@ public class TutorialScreen implements Screen {
     }
 
     private void draw(SpriteBatch batch) {
+        if (layoutValues == null) {
+            GlyphLayout topLayout = new GlyphLayout(GAME.font, TOP_TEXT);
+            GlyphLayout[] textLayout = {topLayout};
+            layoutValues = Utils.positionText(GAME.viewport, textLayout);
+        }
+
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
-        
+
         batch.begin();
 
         tutorialSprite.draw(batch);
         GAME.font.draw(batch, TOP_TEXT, layoutValues.get("x1"), layoutValues.get("y1"));
-        
+
         batch.end();
     }
 
@@ -70,5 +72,5 @@ public class TutorialScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         GAME.viewport.update(width, height);
-    }  
+    }
 }

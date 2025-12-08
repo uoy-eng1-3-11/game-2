@@ -15,43 +15,37 @@ public class MazeGame extends Game {
     // Constants in arbitrary units for the camera
     static final int WORLD_WIDTH = 200;
     static final int WORLD_HEIGHT = 200;
-    
+
     // Constants in arbitrary units for Bob's size
     public static final int BOB_WIDTH = 15;
     public static final int BOB_HEIGHT = 15;
-    
+
     // Map to store return data for interactable entities
     // The data can be used to control other objects in this program
     Map<String, Boolean> evilBobReturnData = new HashMap<>();
     Map<String, Boolean> campusSecurityReturnData = new HashMap<>();
     boolean campusSecurityCreated;
-    
+
     // Screen manager
     public BitmapFont font;
     public ExtendViewport viewport;
-    
+
     // The two sprite batches -> ones for the main game, and one for the HUD
     public SpriteBatch batch;
-    
+
     @Override
     public void create() {
-        
-        loadFonts();
-        
         viewport = new ExtendViewport(WORLD_WIDTH, WORLD_HEIGHT);
-        
-        batch = new SpriteBatch();
 
         this.setScreen(new TitleScreen(this));
     }
-    
-    public void loadFonts() {
-        font = new BitmapFont();
-    }
-        
+
     /** Renders different screens based on activeScreen configuration */
     @Override
     public void render() {
+        if (batch == null) batch = new SpriteBatch();
+        if (font == null) font = new BitmapFont();
+
         super.render();
     }
 
@@ -59,11 +53,10 @@ public class MazeGame extends Game {
     public void resize(int width, int height) {
         viewport.update(width, height, true); // Changes the viewport's size to the sizes passed
     }
-    
+
     @Override
     public void dispose() {
-        batch.dispose();
-        font.dispose();
+        if (batch != null) batch.dispose();
+        if (font != null) font.dispose();
     }
 }
-    

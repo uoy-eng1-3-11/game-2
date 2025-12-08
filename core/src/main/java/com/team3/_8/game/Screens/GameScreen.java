@@ -38,7 +38,7 @@ public class GameScreen implements Screen {
     //private CollectableEntity keycard;
     private float timer;
     private Maze maze;
-    private HUD hud;
+    private final HUD hud = new HUD();
 
     private static Map<String, Integer> eventTracker;
 
@@ -48,7 +48,6 @@ public class GameScreen implements Screen {
         float width = Gdx.graphics.getWidth();
         float height = Gdx.graphics.getHeight();
 
-        hud = new HUD(new SpriteBatch());
         createLayers();
         createBob();
         createSlippyWater();
@@ -68,7 +67,7 @@ public class GameScreen implements Screen {
         bobSprite.setPosition(100, 500);
         bobSprite.setSize(BOB_WIDTH, BOB_HEIGHT);
         EntityManager.add(new Bob(bobSprite, 50, -3));
-        
+
     }
 
     private void createSlippyWater() {
@@ -76,7 +75,7 @@ public class GameScreen implements Screen {
         Sprite waterSprite = new Sprite(texture);
         waterSprite.setPosition(350, 530);
         waterSprite.setSize(BOB_WIDTH, BOB_HEIGHT);
-        EntityManager.add(new SlippyWater(waterSprite)); 
+        EntityManager.add(new SlippyWater(waterSprite));
     }
 
     private void createCheckin() {
@@ -84,7 +83,7 @@ public class GameScreen implements Screen {
         Sprite checkinSprite = new Sprite(texture);
         checkinSprite.setPosition(360, 219);
         checkinSprite.setSize(BOB_WIDTH, BOB_HEIGHT);
-        EntityManager.add(new CheckinCode(checkinSprite)); 
+        EntityManager.add(new CheckinCode(checkinSprite));
     }
 
     private void createGoldenIdol() {
@@ -92,7 +91,7 @@ public class GameScreen implements Screen {
         Sprite goldenSprite = new Sprite(texture);
         goldenSprite.setPosition(1230, 1160);
         goldenSprite.setSize(BOB_WIDTH, BOB_HEIGHT);
-        EntityManager.add(new GoldenIdol(goldenSprite)); 
+        EntityManager.add(new GoldenIdol(goldenSprite));
     }
 
     private void createWarpPanel() {
@@ -115,7 +114,7 @@ public class GameScreen implements Screen {
         evilBobSprite.setSize(BOB_WIDTH*2, BOB_HEIGHT*2);
         EntityManager.add(new EvilBob(evilBobSprite, 0));
     }
-        
+
     private void createKeycard() {
         Texture keycardTexture = new Texture("keycard.png");
         Sprite keycardSprite = new Sprite(keycardTexture);
@@ -123,7 +122,7 @@ public class GameScreen implements Screen {
         keycardSprite.setSize(BOB_WIDTH * 2, BOB_HEIGHT * 2);
         EntityManager.add(new Keycard(keycardSprite));
     }
-    
+
     private void createCamera(float w, float h) {
         camera = new OrthographicCamera(w/2,h/2);
         camera.position.set(
@@ -132,7 +131,7 @@ public class GameScreen implements Screen {
             0);
         camera.zoom = 1f;
         camera.update();
-    } 
+    }
 
     @Override
     public void render(float delta) {
@@ -148,22 +147,22 @@ public class GameScreen implements Screen {
         // Development modes
         boolean dev_zoom = false;
         paused = GameController.handleInput(camera, paused, dev_zoom);
-        
+
         if (!paused) {
-            
+
             // Checks for collision with evilBob
             //evilBobReturnData = evilBob.collision(bob);
 
             EntityManager.update(delta);
-            
+
             // Handles interaction with characters
             //handleInteraction();
-            
+
             // Moves bob in player direction (if not hitting a wall)
             timer += delta;
         }
-        
-        
+
+
         if (eventTracker.get("Negative") == 5 && HUD.achievments[3] == false) {
             HUD.addAchievement(3, 500);
         }
@@ -210,18 +209,18 @@ public class GameScreen implements Screen {
         }
 
         batch.setProjectionMatrix(camera.combined);
-        
+
         // Sprite batch drawing
         maze.renderMap(camera);
-        
+
         GAME.batch.begin();
         EntityManager.draw(batch);
-            
+
         batch.end();
-            
+
         // The drawing of the HUD of the game
         hud.draw(GAME.font, GameController.formatTime(timer), eventTracker, Bob.bob, paused, GAME.viewport);
-            
+
         // Sets rendered screens based on game state
         if (paused) {
             hud.pauseScreen(GAME.font, GAME.viewport);
