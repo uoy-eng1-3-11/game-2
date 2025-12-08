@@ -31,7 +31,7 @@ public class HUD {
 
     public static int score = 0;
 
-    public static boolean[] achievments = {false,false,false,false,false,false,false,false};
+    public static boolean[] achievments;
     private static float achievmentTimer;
     private static ArrayList<Integer> achievementNumber;
     private String[] achievementText = {
@@ -52,6 +52,9 @@ public class HUD {
         this.goldenIdol = new Texture("goldenIdol.png");
         this.pause = new Texture("libgdx.png");
         achievementNumber = new ArrayList<Integer>();
+        achievmentTimer = 0;
+        score = 0;
+        achievments = new boolean[8];
     }
     
     /**

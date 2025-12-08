@@ -183,7 +183,7 @@ public class GameScreen implements Screen {
             eventTriggered("Negative");
         }
         // The code to check if the game has ended
-        if (timer >= 10) {
+        if (timer >= 300) {
             GAME.setScreen(new LoseScreen(GAME));
         }
     }
