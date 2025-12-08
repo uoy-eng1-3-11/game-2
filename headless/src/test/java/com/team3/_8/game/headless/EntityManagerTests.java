@@ -1,4 +1,4 @@
-package com.team3._8.game.headless.entities;
+package com.team3._8.game.headless;
 
 import com.team3._8.game.EntityManager;
 import com.team3._8.game.entities.Entity;

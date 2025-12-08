@@ -1,4 +1,4 @@
-package com.team3._8.game.headless.entities;
+package com.team3._8.game.headless;
 
 import com.team3._8.game.TextBubble;
 import com.team3._8.game.headless.AbstractHeadlessGdxTest;
