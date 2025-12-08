@@ -9,13 +9,18 @@ import com.team3._8.game.entities.Entity;
 
 public final class EntityManager {
     public static ArrayList<Entity> entities = new ArrayList<Entity>();
-
     static ArrayList<Entity> addedEntities = new ArrayList<Entity>();
-
     static boolean isUpdating = false;
 
+    /** Resets the entity manager to its initial state. */
+    public static void clear() {
+        entities.clear();
+        addedEntities.clear();
+        isUpdating = false;
+    }
+
     /** Adds an entity to the entity manager.
-     * 
+     *
      * @param entity the entity to add
      */
     public static void add(Entity entity){
@@ -28,7 +33,7 @@ public final class EntityManager {
     }
 
     /** Updates all entities.
-     * 
+     *
      * @param delta the time since the last frame
      */
     public static void update(float delta) {
@@ -68,8 +73,8 @@ public final class EntityManager {
     }
 
     /** Draws all the entities.
-     * 
-     * @param batch the {@code SpriteBatch} used for drawing 
+     *
+     * @param batch the {@code SpriteBatch} used for drawing
      */
     public static void draw(SpriteBatch batch){
         for (Entity entity : entities){
@@ -79,7 +84,7 @@ public final class EntityManager {
 
     public static void dispose() {
         for (Entity entity : entities) {
-            entity.expire(); 
+            entity.expire();
             entity.dispose();
         }
         Bob.bob = null;
