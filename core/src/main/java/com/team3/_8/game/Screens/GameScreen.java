@@ -33,9 +33,6 @@ public class GameScreen implements Screen {
     private boolean paused;
 
     private OrthographicCamera camera;
-    //private Bob bob;
-    //private EvilBob evilBob;
-    //private CollectableEntity keycard;
     private float timer;
     private Maze maze;
     private final HUD hud = new HUD();

@@ -16,7 +16,7 @@ public class TextBubble {
     private final float height;
     private boolean visible = false;
     private String text = "";
-    
+
     /**
     * Creates text bubble object
     *
@@ -31,18 +31,16 @@ public class TextBubble {
         this.width = width;
         this.height = height;
     }
-    
+
     /**
     * Allows text bubble text to be set
     *
     * @param text, text to set
-    * @return true
     */
-    public boolean setText(String text) {
+    public void setText(String text) {
         this.text = text;
-        return true;
     }
-    
+
     /**
     * Inverses visibility of text-bubble & text
     *
@@ -52,7 +50,7 @@ public class TextBubble {
         visible = !visible;
         return visible;
     }
-    
+
     /**
     * Draws text bubble
     *
@@ -67,7 +65,7 @@ public class TextBubble {
             bubbleSprite.setPosition(x, y);
             bubbleSprite.setSize(width, height);
             bubbleSprite.draw(batch);
-            
+
             // Sets font colour & draws in text bubble
             font.setColor(Color.BLACK);
             // Calculates where to place text so within bubble

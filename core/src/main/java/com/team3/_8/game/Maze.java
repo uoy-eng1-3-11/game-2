@@ -97,7 +97,7 @@ public class Maze {
         double right_wall_X;
         double left_wall_X;
         double wall_Y;
-        Rectangle wall_collision = null; // collision box of the map
+        Rectangle wall_collision; // collision box of the map
         // Distance bob moves every time function is called (+allowance for changes to delta)
         // System.out.println(delta);
         float effective_speed = entity.getSpeed() * delta * 3;

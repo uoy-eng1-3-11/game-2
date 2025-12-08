@@ -6,9 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.team3._8.game.Screens.TitleScreen;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class MazeGame extends Game {
 
@@ -19,12 +16,6 @@ public class MazeGame extends Game {
     // Constants in arbitrary units for Bob's size
     public static final int BOB_WIDTH = 15;
     public static final int BOB_HEIGHT = 15;
-
-    // Map to store return data for interactable entities
-    // The data can be used to control other objects in this program
-    Map<String, Boolean> evilBobReturnData = new HashMap<>();
-    Map<String, Boolean> campusSecurityReturnData = new HashMap<>();
-    boolean campusSecurityCreated;
 
     // Screen manager
     public BitmapFont font;
