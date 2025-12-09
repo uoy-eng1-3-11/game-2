@@ -2,7 +2,7 @@ package com.team3._8.game.headless.entities;
 
 import com.team3._8.game.entities.Bob;
 import com.team3._8.game.entities.CollectableEntity;
-import com.team3._8.game.headless.AbstractHeadlessGdxTest;
+import com.team3._8.game.headless.HeadlessTest;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class CollectableEntityTests extends AbstractHeadlessGdxTest {
+class CollectableEntityTests extends HeadlessTest {
     class TestEntity extends CollectableEntity {
         public TestEntity(Sprite sprite, float speed, String type) {
             super(sprite, speed, type);

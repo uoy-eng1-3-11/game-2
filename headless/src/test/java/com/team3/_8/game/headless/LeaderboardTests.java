@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LeaderboardTests extends AbstractHeadlessGdxTest {
+public class LeaderboardTests extends HeadlessTest {
     @BeforeEach
     public void resetPreferences() {
         Gdx.app.getPreferences("leaderboard").clear();

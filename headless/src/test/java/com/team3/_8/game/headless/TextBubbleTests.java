@@ -1,7 +1,6 @@
 package com.team3._8.game.headless;
 
 import com.team3._8.game.TextBubble;
-import com.team3._8.game.headless.AbstractHeadlessGdxTest;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class TextBubbleTests extends AbstractHeadlessGdxTest {
+class TextBubbleTests extends HeadlessTest {
     @Test
     public void hideShow() {
         TextBubble bubble = new TextBubble(

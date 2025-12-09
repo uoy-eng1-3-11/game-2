@@ -2,19 +2,16 @@ package com.team3._8.game.headless;
 
 import com.team3._8.game.EntityManager;
 import com.team3._8.game.entities.Entity;
-import com.team3._8.game.headless.AbstractHeadlessGdxTest;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class EntityManagerTests extends AbstractHeadlessGdxTest {
+class EntityManagerTests extends HeadlessTest {
     @Test
     public void entityIsAdded() {
         Entity entity = mock(Entity.class);

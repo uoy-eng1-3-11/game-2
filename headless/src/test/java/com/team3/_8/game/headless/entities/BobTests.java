@@ -1,7 +1,7 @@
 package com.team3._8.game.headless.entities;
 
 import com.team3._8.game.entities.Bob;
-import com.team3._8.game.headless.AbstractHeadlessGdxTest;
+import com.team3._8.game.headless.HeadlessTest;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class BobTests extends AbstractHeadlessGdxTest {
+class BobTests extends HeadlessTest {
     @Test
     public void onlyOneBobWithFirstConstructor() {
         Sprite sprite = mock(Sprite.class);
