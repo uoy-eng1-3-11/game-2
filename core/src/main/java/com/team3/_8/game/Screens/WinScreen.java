@@ -88,6 +88,10 @@ public class WinScreen implements Screen {
         }
     }
 
+    public String getLeaderboardText() {
+        return leaderboardText;
+    }
+
     @Override
     public void pause() {}
     @Override
