@@ -42,7 +42,7 @@ public class EvilBob extends InteractableEntity {
 	private boolean conversationReset = false;
 	// Used to control animation time
 	private float stateTime = 0f;
-	
+
 	/**
 	* Creates character, loads character Texture + Animation, and creates text-bubble for character
 	*/
@@ -51,7 +51,7 @@ public class EvilBob extends InteractableEntity {
 		loadTextures();
 		createTextBubble();
 	}
-	
+
 	/**
 	* Handles interaction with character when started
 	*
@@ -62,7 +62,7 @@ public class EvilBob extends InteractableEntity {
 	public boolean startInteraction() {
 		// Controls final option section of interaction
 		boolean skipChoice = false;
-		
+
 		// Makes textBubbleVisible if no already
 		if (!textBubbleVisible) {
 			textBubbleVisible = textBubble.hideShow();
@@ -84,21 +84,21 @@ public class EvilBob extends InteractableEntity {
 				textBubble.setText("Go Away!\nYou're missing\nmy keycard");
 			}
 		}
-		
+
 		if (conversationReset && !skipChoice) {
 			// Final step of interaction where player given a choice
 			if (Gdx.input.isKeyJustPressed(Input.Keys.Y)) {
 				textBubble.setText("Get out of here!");
-				
+
 				GameScreen.eventTriggered("Positive");
 				HUD.addAchievement(2, 250);
-				
+
                 Bob.bob.setAnimation("Rocket");
                 Bob.bob.setSpeed(150);
 				Bob.bob.removeInventory("Keycard");
 
 				createTripWire(1000, 550);
-				
+
 				conversationReset = false;
 			} else if (Gdx.input.isKeyJustPressed(Input.Keys.N) && !Bob.bob.hasItem("SecurityOverride")) {
 				textBubble.setText("Release Security!");
@@ -117,7 +117,7 @@ public class EvilBob extends InteractableEntity {
 				conversationReset = false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -134,7 +134,7 @@ public class EvilBob extends InteractableEntity {
         Sprite securityOverrideSprite = new Sprite(texture);
     	securityOverrideSprite.setSize(30, 30);
 		securityOverrideSprite.setPosition(x, y);
-		EntityManager.add(new SecurityOveride(securityOverrideSprite));
+		EntityManager.add(new SecurityOverride(securityOverrideSprite));
 	}
 
 	private void createTripWire(int x, int y) {
@@ -144,7 +144,7 @@ public class EvilBob extends InteractableEntity {
 		tripwireSprite.setPosition(x, y);
 		EntityManager.add(new TripWire(tripwireSprite));
 	}
-	
+
 	/**
 	* Handles destruction and reset of interaction if player walks away during / after it
 	*
@@ -157,14 +157,14 @@ public class EvilBob extends InteractableEntity {
 			// Resets conversation & text
 			conversationPointer = 0;
 			textBubble.setText("Interact: E");
-			
+
 			// Hides text-bubble
 			textBubbleVisible = textBubble.hideShow();
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
 	* Draws evilBob character animation & text-bubble
 	*
@@ -174,12 +174,12 @@ public class EvilBob extends InteractableEntity {
 	public void draw(SpriteBatch batch) {
 		// Timer for animation
 		stateTime += Gdx.graphics.getDeltaTime();
-		
+
 		// Sets sprite's animation to next frame
 		TextureRegion current_animation = evilBob.getKeyFrame(stateTime, true);
 		sprite.setRegion(current_animation);
-		
-		
+
+
 		// Draws text to instruct advance of conversation
 		if (conversationPointer > 0) {
 			font.setColor(Color.WHITE);
@@ -188,13 +188,13 @@ public class EvilBob extends InteractableEntity {
 		textBubble.draw(batch, sprite.getX(), sprite.getY());
 		sprite.draw(batch);
 	}
-	
+
 	/** Updates the collision box to the placement of the sprite */
 	protected void updateCollisionBox() {
 		this.collisionBox.setX(this.sprite.getX());
 		this.collisionBox.setY(this.sprite.getY());
 	}
-	
+
 	/** Creates TextBubble */
 	private void createTextBubble() {
 		font = new BitmapFont();
@@ -202,14 +202,14 @@ public class EvilBob extends InteractableEntity {
 		textBubble = new TextBubble(bubble, font, 170, 120);
 		textBubble.setText("Interact: E");
 	}
-	
+
 	/** Loads the sprite and animation textures from atlas into the animation variables */
 	private void loadTextures() {
 		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("atlas/bob.atlas"));
-		
+
 		// Loads animation frames
 		Array<TextureAtlas.AtlasRegion> frames = atlas.findRegions("evil-bob");
-		
+
 		// Creates animation object
 		this.evilBob = new Animation<TextureRegion>(0.5f, frames);
 	}

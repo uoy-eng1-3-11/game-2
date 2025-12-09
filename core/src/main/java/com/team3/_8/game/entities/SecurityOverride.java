@@ -5,12 +5,12 @@ import com.team3._8.game.EntityManager;
 import com.team3._8.game.HUD;
 import com.team3._8.game.Screens.GameScreen;
 
-public class SecurityOveride extends CollectableEntity{
+public class SecurityOverride extends CollectableEntity{
 
-    public SecurityOveride(Sprite sprite) {
+    public SecurityOverride(Sprite sprite) {
         super(sprite, 0, "SecurityOverride");
     }
-    
+
     @Override
     public boolean collected(Bob bob) {
         if (super.collected(bob)) {
