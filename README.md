@@ -19,6 +19,7 @@ Note you must use **Adoptium's Temurin® Java 17**:
     - Type:
         - **feat** - changes that add a feature or modify one
         - **fix**  - changes that fix bugs or issues
+        - **refactor** - code improvements that do not affect behaviour
         - **doc**  - changes to documentation
         - **conf**  - changes to file structure
         - **test** - changes to code tests
