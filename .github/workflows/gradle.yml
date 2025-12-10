@@ -43,14 +43,14 @@ jobs:
           add-job-summary: never
 
       - name: Build project
-        run: ./gradlew build test jacocoTestReport
+        run: ./gradlew jar${{ matrix.name }} test jacocoTestReport
 
-      - name: Upload executable
+      - name: Upload JAR
         uses: actions/upload-artifact@v5
         if: always()
         with:
-          name: Executable (${{ matrix.name }})
-          path: lwjgl3/build/libs/Maze Game-*.jar
+          name: JAR (${{ matrix.name }})
+          path: lwjgl3/build/libs/
 
       - name: Upload JUnit report
         uses: actions/upload-artifact@v5

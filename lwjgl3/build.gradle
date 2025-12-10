@@ -36,7 +36,7 @@ dependencies {
   implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
   implementation project(':core')
   implementation("com.badlogicgames.gdx:gdx-tools:$gdxVersion") { exclude group: 'com.badlogicgames.gdx', module: 'gdx-backend-lwjgl' }
-  
+
   if (enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-backend-lwjgl3:$graalHelperVersion"
     implementation "io.github.berstanio:gdx-svmhelper-extension-box2d:$graalHelperVersion"
@@ -80,10 +80,10 @@ jar {
 
 // Builds a JAR that only includes the files needed to run on macOS, not Windows or Linux.
 // The file size for a Mac-only JAR is about 7MB smaller than a cross-platform JAR.
-tasks.register("jarMac") {
+tasks.register("jarMacOS") {
   dependsOn("jar")
   group("build")
-  jar.archiveFileName.set("${appName}-${projectVersion}-mac.jar")
+  jar.archiveFileName.set("${appName}-${projectVersion}-MacOS.jar")
   jar.exclude("windows/x86/**", "windows/x64/**", "linux/arm32/**", "linux/arm64/**", "linux/x64/**", "**/*.dll", "**/*.so",
     'META-INF/INDEX.LIST', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA')
   dependencies {
@@ -97,7 +97,7 @@ tasks.register("jarMac") {
 tasks.register("jarLinux") {
   dependsOn("jar")
   group("build")
-  jar.archiveFileName.set("${appName}-${projectVersion}-linux.jar")
+  jar.archiveFileName.set("${appName}-${projectVersion}-Linux.jar")
   jar.exclude("windows/x86/**", "windows/x64/**", "macos/arm64/**", "macos/x64/**", "**/*.dll", "**/*.dylib",
     'META-INF/INDEX.LIST', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA')
   dependencies {
@@ -108,10 +108,10 @@ tasks.register("jarLinux") {
 
 // Builds a JAR that only includes the files needed to run on Windows, not Linux or macOS.
 // The file size for a Windows-only JAR is about 6MB smaller than a cross-platform JAR.
-tasks.register("jarWin") {
+tasks.register("jarWindows") {
   dependsOn("jar")
   group("build")
-  jar.archiveFileName.set("${appName}-${projectVersion}-win.jar")
+  jar.archiveFileName.set("${appName}-${projectVersion}-Windows.jar")
   jar.exclude("macos/arm64/**", "macos/x64/**", "linux/arm32/**", "linux/arm64/**", "linux/x64/**", "**/*.dylib", "**/*.so",
     'META-INF/INDEX.LIST', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA')
   dependencies {
