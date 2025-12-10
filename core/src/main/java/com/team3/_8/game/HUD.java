@@ -32,8 +32,8 @@ public class HUD {
 
     public static int score = 0;
 
-    public static boolean[] achievments;
-    private static float achievmentTimer;
+    public static boolean[] achievements;
+    private static float achievementTimer;
     private static ArrayList<Integer> achievementNumber;
     private String[] achievementText = {
         "The key to the kingdom: unlimited access",
@@ -52,9 +52,9 @@ public class HUD {
         this.goldenIdol = new Texture("goldenIdol.png");
         this.pause = new Texture("libgdx.png");
         achievementNumber = new ArrayList<Integer>();
-        achievmentTimer = 0;
+        achievementTimer = 0;
         score = 0;
-        achievments = new boolean[8];
+        achievements = new boolean[8];
     }
 
     /**
@@ -104,16 +104,16 @@ public class HUD {
             y -= font.getLineHeight();
         }
 
-        if (achievmentTimer > 0f) {
-            GlyphLayout achievmentsGlyphLayout = new GlyphLayout(font, achievementText[achievementNumber.get(0)]);
-            float textX = viewport.getWorldWidth() - achievmentsGlyphLayout.width/2f;
+        if (achievementTimer > 0f) {
+            GlyphLayout achievementsGlyphLayout = new GlyphLayout(font, achievementText[achievementNumber.get(0)]);
+            float textX = viewport.getWorldWidth() - achievementsGlyphLayout.width/2f;
             float textY = 50;
-            font.draw(batch, achievmentsGlyphLayout, textX, textY);
-            achievmentTimer -= Gdx.graphics.getDeltaTime();
+            font.draw(batch, achievementsGlyphLayout, textX, textY);
+            achievementTimer -= Gdx.graphics.getDeltaTime();
         } else if (!achievementNumber.isEmpty()) {
             achievementNumber.remove(0);
             if (!achievementNumber.isEmpty()) {
-                achievmentTimer = 5;
+                achievementTimer = 5;
             }
         }
 
@@ -172,8 +172,8 @@ public class HUD {
 
     public static void addAchievement(int achievementNum, int scoreWorth){
         achievementNumber.add(achievementNum);
-        achievments[achievementNum] = true;
-        achievmentTimer = 5;
+        achievements[achievementNum] = true;
+        achievementTimer = 5;
         score += scoreWorth;
     }
 }

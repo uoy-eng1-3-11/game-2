@@ -160,16 +160,16 @@ public class GameScreen implements Screen {
         }
 
 
-        if (eventTracker.get("Negative") == 5 && HUD.achievments[3] == false) {
+        if (eventTracker.get("Negative") == 5 && !HUD.achievements[3]) {
             HUD.addAchievement(3, 500);
         }
-        int achievmentCount = 0;
-        for (boolean get : HUD.achievments) {
+        int achievementCount = 0;
+        for (boolean get : HUD.achievements) {
             if (get) {
-                achievmentCount++;
+                achievementCount++;
             }
         }
-        if (achievmentCount == 7){
+        if (achievementCount == 7){
             HUD.addAchievement(7, 1500);
         }
         if (maze.HitsWinLayer(Bob.bob)) {
