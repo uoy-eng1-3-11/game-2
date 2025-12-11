@@ -31,11 +31,15 @@ public class MazeGame extends Game {
         this.setScreen(new TitleScreen(this));
     }
 
+    public void createFont() {
+        font = new BitmapFont();
+    }
+
     /** Renders different screens based on activeScreen configuration */
     @Override
     public void render() {
         if (batch == null) batch = new SpriteBatch();
-        if (font == null) font = new BitmapFont();
+        if (font == null) createFont();
 
         super.render();
     }

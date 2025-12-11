@@ -24,10 +24,11 @@ public class WinScreen implements Screen {
 
     public WinScreen(MazeGame game, int score, int timer) {
         GAME = game;
-
+        
         int totalScore = score+(300-timer)*10;
 
         BOTTOM_TEXT = "score: "+totalScore;
+        
 
         leaderboard.insert(totalScore);
         leaderboard.save();
@@ -45,6 +46,7 @@ public class WinScreen implements Screen {
         String leaderboardText = leaderboard.getText();
 
         if (layoutValues == null) {
+            GAME.font.getData().setScale(1f);
             GlyphLayout topLayout = new GlyphLayout(GAME.font, TOP_TEXT);
             GlyphLayout centerLayout = new GlyphLayout(GAME.font, CENTER_TEXT);
             GlyphLayout bottomLayout = new GlyphLayout(GAME.font, BOTTOM_TEXT);

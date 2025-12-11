@@ -106,7 +106,7 @@ public class HUD {
 
         if (achievementTimer > 0f) {
             GlyphLayout achievementsGlyphLayout = new GlyphLayout(font, achievementText[achievementNumber.get(0)]);
-            float textX = viewport.getWorldWidth() - achievementsGlyphLayout.width/2f;
+            float textX = Gdx.graphics.getWidth()/2f - achievementsGlyphLayout.width/2f;
             float textY = 50;
             font.draw(batch, achievementsGlyphLayout, textX, textY);
             achievementTimer -= Gdx.graphics.getDeltaTime();

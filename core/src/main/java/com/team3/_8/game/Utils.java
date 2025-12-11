@@ -22,7 +22,7 @@ public final class Utils {
         // Used to evenly space lines
         int numLines = textLayout.length;
         // Spacing between lines
-        float spacing = 20f;
+        float spacing = textLayout[0].height * 1.5f;
         float offset;
         
         // Offsets text based on positioning on screen

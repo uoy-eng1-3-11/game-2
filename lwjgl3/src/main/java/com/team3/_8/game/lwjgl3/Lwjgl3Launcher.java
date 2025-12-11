@@ -32,9 +32,11 @@ public class Lwjgl3Launcher {
     // tearing.
 
     configuration.setWindowedMode(640, 480);
+
+    configuration.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
     // You can change these files; they are in lwjgl3/src/main/resources/ .
     // They can also be loaded from the root of assets/ .
-    configuration.setWindowIcon("andy.png");
+    configuration.setWindowIcon("libgdx16.png");
     return configuration;
   }
 }

@@ -37,14 +37,14 @@ abstract class InteractableEntity extends CollidableEntity {
     /**
     * Starts the interaction for when the player interacts with the entity
     *
-    * @return Map of eventIDs and whether it is triggered
+    * @return true if the interaction took place
     */
     public abstract boolean startInteraction();
     
     /**
     * Stops the interaction with entity if the interaction can be stopped early
     *
-    * @return map of eventIDs and whether they have been stopped
+    * @return false
     */
     public abstract boolean stopInteraction();
     

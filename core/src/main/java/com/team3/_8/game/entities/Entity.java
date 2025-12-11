@@ -23,6 +23,10 @@ public abstract class Entity {
         this.speed = speed;
     }
 
+    /** Handles logic each frame.
+     * 
+     * @param delta the time since the last frame.
+     */
     public abstract void update(float delta);
     
     /**

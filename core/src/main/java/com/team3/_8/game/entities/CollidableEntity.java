@@ -61,6 +61,11 @@ abstract public class CollidableEntity extends Entity {
         updateCollisionBox();
     }
 
+    /** Checks whether this entity is colliding with another specified other entity.
+     * 
+     * @param other the other {@link CollidableEntity} the check against.
+     * @return whether the two entities are colliding.
+     */
     public boolean isColliding(CollidableEntity other) {
         return collisionBox.overlaps(other.getCollisionBox());
     }

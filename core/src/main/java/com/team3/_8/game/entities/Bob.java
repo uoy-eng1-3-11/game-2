@@ -33,10 +33,19 @@ public final class Bob extends CollidableEntity {
     // Holds the name of the animation linked to the animation
     private Map<String, Animation<TextureRegion>> bob_animations;
     private String animationOverride = "";
+
+    // Stores whether the player has been caught by security 
     private boolean hasReset = false;
+
+    // Stores information the player on the player slipping
     private boolean slipping = false;
     private Vector2 slipDirection = Vector2.Zero;
     
+    /** Initialises Bob.
+     * 
+     * @param sprite the sprite with the texture and position.
+     * @param speed how far the entity can move each second.
+     */
     public Bob(Sprite sprite, float speed) {
         super(sprite, speed);
         if (bob != null) {
@@ -46,6 +55,12 @@ public final class Bob extends CollidableEntity {
         loadTextures();
     }
     
+    /** Initialises Bob.
+     * 
+     * @param sprite the sprite with the texture and position.
+     * @param speed how far the entity can move each second.
+     * @param collision__size_change how much to increase the collider box size.
+     */
     public Bob(Sprite sprite, float speed, float collision__size_change) {
         super(sprite, speed, collision__size_change);
         if (bob != null) {
@@ -94,12 +109,7 @@ public final class Bob extends CollidableEntity {
         updateCollisionBox(collision__size_change);
     }
     
-    /**
-    * This method controls the movement of Bob, by moving him around the axis, depending on the input
-    *
-    * @param movement_halter the directions that bob cannot move, false allowing movement 0-left,
-    *     1-top, 2-right, 3-bottom
-    */
+    /** This method controls the movement of Bob, by moving him around the axis, depending on the input. */
     public void move() {
         boolean movement_halter[] = Maze.hitsWall(this, Gdx.graphics.getDeltaTime());
         float delta = Gdx.graphics.getDeltaTime();
@@ -109,6 +119,7 @@ public final class Bob extends CollidableEntity {
         // Default animation if no movement
         TextureRegion current_animation = bob_animations.get("Front").getKeyFrame(stateTime, true);
 
+        // If the player is slipping, they move in that direction until a wall is hit.
         if (slipping) {
             this.sprite.translate(this.speed * delta * slipDirection.x, this.speed * delta * slipDirection.y);
             if (slipDirection.x == 1 && movement_halter[0]) {
@@ -127,7 +138,7 @@ public final class Bob extends CollidableEntity {
 
         slipDirection = new Vector2(0,0);
         
-        // X-axis
+        // Checks movement on the X-axis
         if (((Gdx.input.isKeyPressed(Input.Keys.RIGHT)) || (Gdx.input.isKeyPressed(Input.Keys.D)))
             && !movement_halter[0]) {
             this.sprite.translateX(this.speed * delta);
@@ -151,7 +162,7 @@ public final class Bob extends CollidableEntity {
             slipDirection.x = -1;
         }
         
-        // Y-axis
+        // Checks the movement on the Y-axis
         if (((Gdx.input.isKeyPressed(Input.Keys.UP)) || (Gdx.input.isKeyPressed(Input.Keys.W)))
             && !movement_halter[3]) {
             this.sprite.translateY(speed * delta);
@@ -174,6 +185,7 @@ public final class Bob extends CollidableEntity {
             slipDirection.y = -1;
         }
         
+        // Updates the animation.
         sprite.setRegion(current_animation);
     }
     
@@ -197,6 +209,7 @@ public final class Bob extends CollidableEntity {
         return inventory.remove(item);
     }
     
+
     public Set<String> getInventory() {
         return this.inventory;
     }
