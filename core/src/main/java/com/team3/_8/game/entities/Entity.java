@@ -71,6 +71,7 @@ public abstract class Entity {
         return isExpired;
     }
 
+    /** Sets the entity to be removed on the next frame. */
     public void expire() {
         isExpired = true;
     }

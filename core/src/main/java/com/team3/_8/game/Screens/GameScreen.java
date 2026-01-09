@@ -139,6 +139,10 @@ public class GameScreen implements Screen {
         }
     }
 
+    /** Handles logic each frame.
+     * 
+     * @param delta the time since the last frame.
+     */
     private void update(float delta) {
         // The input for the zoom in and out
         // Development modes
@@ -193,6 +197,10 @@ public class GameScreen implements Screen {
         eventTracker.put(eventName, eventTracker.get(eventName) + 1);
     }
 
+    /** Draws all objects in scene every frame.
+     * 
+     * @param batch the spite batch used to draw.
+     */
     public void draw(SpriteBatch batch) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
 

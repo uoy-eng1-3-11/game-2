@@ -3,8 +3,8 @@ package com.team3._8.game.Screens;
 import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -37,11 +37,21 @@ public class WinScreen implements Screen {
     @Override
     public void render(float delta){
         draw(GAME.batch);
-        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+        input();
+    }
+
+    /** Checks the inputs each frame. */
+    private void input() {
+        // Sets the screen to the title screen if the escape key is pressed.
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             GAME.setScreen(new TitleScreen(GAME));
         }
     }
 
+    /** Draws all objects in scene every frame.
+     * 
+     * @param batch the spite batch used to draw.
+     */
     public void draw(SpriteBatch batch) {
         String leaderboardText = leaderboard.getText();
 

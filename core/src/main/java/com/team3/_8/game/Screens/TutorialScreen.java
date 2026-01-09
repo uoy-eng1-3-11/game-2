@@ -36,12 +36,18 @@ public class TutorialScreen implements Screen {
         draw(GAME.batch);
     }
 
+    /** Checks the inputs each frame. */
     private void input() {
+        // Sets the screen to the title screen if the escape key is pressed.
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             GAME.setScreen(new TitleScreen(GAME));
         }
     }
 
+    /** Draws all objects in scene every frame.
+     * 
+     * @param batch the spite batch used to draw.
+     */
     private void draw(SpriteBatch batch) {
         if (layoutValues == null) {
             GlyphLayout topLayout = new GlyphLayout(GAME.font, TOP_TEXT);

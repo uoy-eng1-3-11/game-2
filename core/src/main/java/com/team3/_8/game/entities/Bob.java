@@ -242,6 +242,13 @@ public final class Bob extends CollidableEntity {
         slipping = value;
     }
     
+    /** Creates an array of texture regions all flipped.
+     * 
+     * @param frameArray The Texture atlas to be flipped.
+     * @param flipX if it should be flipped on the x axis.
+     * @param flipY if it should be flipped on the y axis.
+     * @return an array of texture regions flipped on the specified axis
+     */
     private Array<TextureRegion> flipFrames(
         Array<TextureAtlas.AtlasRegion> frameArray, Boolean flipX, Boolean flipY) {
             // Flips frames

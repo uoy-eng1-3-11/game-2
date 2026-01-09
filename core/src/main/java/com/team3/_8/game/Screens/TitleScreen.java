@@ -29,15 +29,22 @@ public class TitleScreen implements Screen {
         draw(GAME.batch);
     }
 
+    /** Checks the inputs each frame. */
     private void input() {
+        // Sets the screen to the game screen if the space key is pressed.
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             GAME.setScreen(new GameScreen(GAME));
         }
+        // Sets the screen to the tutorial screen if the tutorial screen is pressed.
         if (Gdx.input.isKeyPressed(Input.Keys.T)) {
             GAME.setScreen(new TutorialScreen(GAME));
         }
     } 
 
+    /** Draws all objects in scene every frame.
+     * 
+     * @param batch the spite batch used to draw.
+     */
     private void draw(SpriteBatch batch) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
 

@@ -47,10 +47,4 @@ abstract class InteractableEntity extends CollidableEntity {
     * @return false
     */
     public abstract boolean stopInteraction();
-    
-    //@Override
-    //public void move(boolean[] movement_halter) {
-    //    // Not currently implemented, but useful if you want the entity to move
-    //    throw new UnsupportedOperationException("Unimplemented method 'move'");
-    //}
 }

@@ -121,6 +121,11 @@ public class EvilBob extends InteractableEntity {
 		return true;
 	}
 
+	/** Creates a security goose entity on the specified position.
+	 * 
+	 * @param x the x coordinate
+	 * @param y the y coordinate
+	 */
 	private void createSecurityGoose(int x, int y) {
 		TextureAtlas atlas = new TextureAtlas("atlas/security_geese.atlas");
         Sprite securitySprite = new Sprite(atlas.findRegion("walking"));
@@ -129,6 +134,11 @@ public class EvilBob extends InteractableEntity {
 		EntityManager.add(new CampusSecurity(securitySprite, 50));
 	}
 
+	/** Creates a security goose entity on the specified position.
+	 * 
+	 * @param x the x coordinate
+	 * @param y the y coordinate
+	 */
 	private void createSecurityOverride(int x, int y) {
 		Texture texture = new Texture("SecurityOverride.png");
         Sprite securityOverrideSprite = new Sprite(texture);
@@ -137,6 +147,11 @@ public class EvilBob extends InteractableEntity {
 		EntityManager.add(new SecurityOverride(securityOverrideSprite));
 	}
 
+	/** Creates a security goose entity on the specified position.
+	 * 
+	 * @param x the x coordinate
+	 * @param y the y coordinate
+	 */
 	private void createTripWire(int x, int y) {
 		Texture texture = new Texture("tripWire.png");
         Sprite tripwireSprite = new Sprite(texture);

@@ -41,12 +41,18 @@ public class LoseScreen implements Screen {
         draw(GAME.batch);
     }
 
+    /** Checks the inputs each frame. */
     private void input() {
+        // Sets the screen to the game screen if the space key is pressed.
         if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
             GAME.setScreen(new GameScreen(GAME));
         }
     }
 
+    /** Draws all objects in scene every frame.
+     * 
+     * @param batch the spite batch used to draw.
+     */
     private void draw(SpriteBatch batch) {
         if (bobSprite == null) {
             bobSprite = new Sprite();

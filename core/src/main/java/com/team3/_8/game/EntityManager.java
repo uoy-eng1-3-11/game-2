@@ -82,6 +82,7 @@ public final class EntityManager {
         }
     }
 
+    /** Disposes all the entities in the entity manager. */
     public static void dispose() {
         for (Entity entity : entities) {
             entity.expire();
